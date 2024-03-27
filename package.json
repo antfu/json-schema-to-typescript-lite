@@ -45,6 +45,7 @@
     "lint": "eslint .",
     "typecheck": "tsc --noEmit",
     "test": "vitest",
+    "release": "bumpp && pnpm publish",
     "prepublishOnly": "npm run build"
   },
   "dependencies": {
@@ -58,6 +59,7 @@
     "@types/node": "^20.11.30",
     "@types/rimraf": "^4.0.5",
     "ava": "^4.2.0",
+    "bumpp": "^9.4.0",
     "concurrently": "^8.2.2",
     "eslint": "^8.57.0",
     "json-schema-to-typescript-lite": "workspace:*",
