@@ -1,4 +1,4 @@
-export let exclude = true
+export const exclude = true
 
 /**
  * @see https://github.com/bcherny/json-schema-to-typescript/issues/49

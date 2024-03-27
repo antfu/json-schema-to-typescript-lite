@@ -13,7 +13,7 @@ export const input = {
     middleName: {
       type: 'string',
       deprecated: true,
-      description: "Hi, my name's Doechii, this will be in a  comment",
+      description: 'Hi, my name\'s Doechii, this will be in a  comment',
     },
     lastName: {
       type: 'string',

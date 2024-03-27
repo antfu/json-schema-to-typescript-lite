@@ -9,7 +9,7 @@ export const input = {
   description: 'An Azure deployment template',
   type: 'object',
   properties: {
-    $schema: {type: 'string', description: 'JSON schema reference'},
+    $schema: { type: 'string', description: 'JSON schema reference' },
     metadata: {
       type: 'object',
       description: 'Additional unstructured metadata to include with the template deployment.',
@@ -25,24 +25,24 @@ export const input = {
       pattern: '(^[0-9]+\\.[0-9]+\\.[0-9]+\\.[0-9]+$)',
       description: 'A 4 number format for the version number of this template file. For example, 1.0.0.0',
     },
-    variables: {type: 'object', description: 'Variable definitions'},
+    variables: { type: 'object', description: 'Variable definitions' },
     parameters: {
       type: 'object',
       description: 'Input parameter definitions',
-      additionalProperties: {$ref: '#/definitions/parameter'},
+      additionalProperties: { $ref: '#/definitions/parameter' },
     },
-    functions: {type: 'array', items: {$ref: '#/definitions/functionNamespace'}, description: 'User defined functions'},
+    functions: { type: 'array', items: { $ref: '#/definitions/functionNamespace' }, description: 'User defined functions' },
     resources: {
       description: 'Collection of resources to be deployed',
       oneOf: [
-        {$ref: '#/definitions/resourcesWithoutSymbolicNames'},
-        {$ref: '#/definitions/resourcesWithSymbolicNames'},
+        { $ref: '#/definitions/resourcesWithoutSymbolicNames' },
+        { $ref: '#/definitions/resourcesWithSymbolicNames' },
       ],
     },
     outputs: {
       type: 'object',
       description: 'Output parameter definitions',
-      additionalProperties: {$ref: '#/definitions/output'},
+      additionalProperties: { $ref: '#/definitions/output' },
     },
   },
   additionalProperties: false,
@@ -51,12 +51,12 @@ export const input = {
     ARMResourceBase: {
       type: 'object',
       properties: {
-        name: {type: 'string', description: 'Name of the resource'},
-        type: {type: 'string', description: 'Resource type'},
+        name: { type: 'string', description: 'Name of the resource' },
+        type: { type: 'string', description: 'Resource type' },
         condition: {
           oneOf: [
-            {type: 'boolean'},
-            {$ref: 'https://schema.management.azure.com/schemas/common/definitions.json#/definitions/expression'},
+            { type: 'boolean' },
+            { $ref: 'https://schema.management.azure.com/schemas/common/definitions.json#/definitions/expression' },
           ],
           description: 'Condition of the resource',
         },
@@ -66,7 +66,7 @@ export const input = {
         },
         dependsOn: {
           type: 'array',
-          items: {type: 'string'},
+          items: { type: 'string' },
           description: 'Collection of resources this resource depends on',
         },
       },
@@ -74,81 +74,81 @@ export const input = {
     },
     proxyResourceBase: {
       allOf: [
-        {$ref: '#/definitions/ARMResourceBase'},
+        { $ref: '#/definitions/ARMResourceBase' },
         {
           properties: {
-            location: {$ref: '#/definitions/resourceLocations', description: 'Location to deploy resource to'},
+            location: { $ref: '#/definitions/resourceLocations', description: 'Location to deploy resource to' },
           },
         },
       ],
     },
     resourceBase: {
       allOf: [
-        {$ref: '#/definitions/ARMResourceBase'},
+        { $ref: '#/definitions/ARMResourceBase' },
         {
           properties: {
-            location: {$ref: '#/definitions/resourceLocations', description: 'Location to deploy resource to'},
-            tags: {type: 'object', description: 'Name-value pairs to add to the resource'},
-            copy: {$ref: '#/definitions/resourceCopy'},
+            location: { $ref: '#/definitions/resourceLocations', description: 'Location to deploy resource to' },
+            tags: { type: 'object', description: 'Name-value pairs to add to the resource' },
+            copy: { $ref: '#/definitions/resourceCopy' },
             scope: {
               type: 'string',
               description:
                 'Scope for the resource or deployment. Today, this works for two cases: 1) setting the scope for extension resources 2) deploying resources to the tenant scope in non-tenant scope deployments',
             },
-            comments: {type: 'string'},
+            comments: { type: 'string' },
           },
         },
       ],
     },
-    resourceBaseExternal: {$ref: '#/definitions/resourceBase', required: ['plan']},
+    resourceBaseExternal: { $ref: '#/definitions/resourceBase', required: ['plan'] },
     resourceSku: {
       type: 'object',
       properties: {
-        name: {type: 'string', description: 'Name of the sku'},
-        tier: {type: 'string', description: 'Tier of the sku'},
-        size: {type: 'string', description: 'Size of the sku'},
-        family: {type: 'string', description: 'Family of the sku'},
-        capacity: {type: 'integer', description: 'Capacity of the sku'},
+        name: { type: 'string', description: 'Name of the sku' },
+        tier: { type: 'string', description: 'Tier of the sku' },
+        size: { type: 'string', description: 'Size of the sku' },
+        family: { type: 'string', description: 'Family of the sku' },
+        capacity: { type: 'integer', description: 'Capacity of the sku' },
       },
       required: ['name'],
     },
     resourceCopy: {
       type: 'object',
       properties: {
-        name: {type: 'string', description: 'Name of the copy'},
+        name: { type: 'string', description: 'Name of the copy' },
         count: {
           oneOf: [
-            {$ref: 'https://schema.management.azure.com/schemas/common/definitions.json#/definitions/expression'},
-            {type: 'integer'},
+            { $ref: 'https://schema.management.azure.com/schemas/common/definitions.json#/definitions/expression' },
+            { type: 'integer' },
           ],
           description: 'Count of the copy',
         },
-        mode: {type: 'string', enum: ['Parallel', 'Serial'], description: 'The copy mode'},
+        mode: { type: 'string', enum: ['Parallel', 'Serial'], description: 'The copy mode' },
         batchSize: {
           oneOf: [
-            {$ref: 'https://schema.management.azure.com/schemas/common/definitions.json#/definitions/expression'},
-            {type: 'integer'},
+            { $ref: 'https://schema.management.azure.com/schemas/common/definitions.json#/definitions/expression' },
+            { type: 'integer' },
           ],
           description: 'The serial copy batch size',
         },
       },
     },
-    resourceKind: {type: 'string', maxLength: 64, pattern: '(^[a-zA-Z0-9_.()-]+$)', description: 'Kind of resource'},
+    resourceKind: { type: 'string', maxLength: 64, pattern: '(^[a-zA-Z0-9_.()-]+$)', description: 'Kind of resource' },
     resourcePlan: {
       type: 'object',
       properties: {
-        name: {type: 'string', description: 'Name of the plan'},
-        promotionCode: {type: 'string', description: 'Plan promotion code'},
-        publisher: {type: 'string', description: 'Name of the publisher'},
-        product: {type: 'string', description: 'Name of the product'},
-        version: {type: 'string', description: 'Version of the product'},
+        name: { type: 'string', description: 'Name of the plan' },
+        promotionCode: { type: 'string', description: 'Plan promotion code' },
+        publisher: { type: 'string', description: 'Name of the publisher' },
+        product: { type: 'string', description: 'Name of the product' },
+        version: { type: 'string', description: 'Version of the product' },
       },
       required: ['name'],
       description: 'Plan of the resource',
     },
     resourceLocations: {
       anyOf: [
-        {type: 'string'},
+        { type: 'string' },
         {
           enum: [
             'East Asia',
@@ -185,10 +185,10 @@ export const input = {
     functionNamespace: {
       type: 'object',
       properties: {
-        namespace: {type: 'string', minLength: 1, description: 'Function namespace'},
+        namespace: { type: 'string', minLength: 1, description: 'Function namespace' },
         members: {
           type: 'object',
-          additionalProperties: {$ref: '#/definitions/functionMember'},
+          additionalProperties: { $ref: '#/definitions/functionMember' },
           description: 'Function members',
         },
       },
@@ -198,40 +198,40 @@ export const input = {
       properties: {
         parameters: {
           type: 'array',
-          items: {$ref: '#/definitions/functionParameter'},
+          items: { $ref: '#/definitions/functionParameter' },
           description: 'Function parameters',
         },
-        output: {$ref: '#/definitions/functionOutput', description: 'Function output'},
+        output: { $ref: '#/definitions/functionOutput', description: 'Function output' },
       },
     },
     functionParameter: {
       type: 'object',
       properties: {
-        name: {type: 'string', minLength: 1, description: 'Function parameter name'},
-        type: {$ref: '#/definitions/parameterTypes', description: 'Type of function parameter value'},
+        name: { type: 'string', minLength: 1, description: 'Function parameter name' },
+        type: { $ref: '#/definitions/parameterTypes', description: 'Type of function parameter value' },
       },
     },
     functionOutput: {
       type: 'object',
       properties: {
-        type: {$ref: '#/definitions/parameterTypes', description: 'Type of function output value'},
-        value: {$ref: '#/definitions/parameterValueTypes', description: 'Value assigned for function output'},
+        type: { $ref: '#/definitions/parameterTypes', description: 'Type of function output value' },
+        value: { $ref: '#/definitions/parameterValueTypes', description: 'Value assigned for function output' },
       },
     },
     parameter: {
       type: 'object',
       properties: {
-        type: {$ref: '#/definitions/parameterTypes', description: 'Type of input parameter'},
+        type: { $ref: '#/definitions/parameterTypes', description: 'Type of input parameter' },
         defaultValue: {
           $ref: '#/definitions/parameterValueTypes',
           description: 'Default value to be used if one is not provided',
         },
-        allowedValues: {type: 'array', description: 'Value can only be one of these values'},
-        metadata: {type: 'object', description: 'Metadata for the parameter, can be any valid JSON object'},
-        minValue: {type: 'integer', description: 'Minimum value for the int type parameter'},
-        maxValue: {type: 'integer', description: 'Maximum value for the int type parameter'},
-        minLength: {type: 'integer', description: 'Minimum length for the string or array type parameter'},
-        maxLength: {type: 'integer', description: 'Maximum length for the string or array type parameter'},
+        allowedValues: { type: 'array', description: 'Value can only be one of these values' },
+        metadata: { type: 'object', description: 'Metadata for the parameter, can be any valid JSON object' },
+        minValue: { type: 'integer', description: 'Minimum value for the int type parameter' },
+        maxValue: { type: 'integer', description: 'Maximum value for the int type parameter' },
+        minLength: { type: 'integer', description: 'Minimum length for the string or array type parameter' },
+        maxLength: { type: 'integer', description: 'Maximum length for the string or array type parameter' },
       },
       required: ['type'],
       description: 'Input parameter definitions',
@@ -241,31 +241,31 @@ export const input = {
       properties: {
         condition: {
           oneOf: [
-            {type: 'boolean'},
-            {$ref: 'https://schema.management.azure.com/schemas/common/definitions.json#/definitions/expression'},
+            { type: 'boolean' },
+            { $ref: 'https://schema.management.azure.com/schemas/common/definitions.json#/definitions/expression' },
           ],
           description: 'Condition of the output',
         },
-        type: {$ref: '#/definitions/parameterTypes', description: 'Type of output value'},
-        value: {$ref: '#/definitions/parameterValueTypes', description: 'Value assigned for output'},
-        copy: {$ref: '#/definitions/outputCopy', description: 'Output copy'},
+        type: { $ref: '#/definitions/parameterTypes', description: 'Type of output value' },
+        value: { $ref: '#/definitions/parameterValueTypes', description: 'Value assigned for output' },
+        copy: { $ref: '#/definitions/outputCopy', description: 'Output copy' },
       },
       required: ['type'],
       description: 'Set of output parameters',
     },
-    parameterTypes: {enum: ['string', 'securestring', 'int', 'bool', 'object', 'secureObject', 'array']},
-    parameterValueTypes: {type: ['string', 'boolean', 'integer', 'number', 'object', 'array', 'null']},
+    parameterTypes: { enum: ['string', 'securestring', 'int', 'bool', 'object', 'secureObject', 'array'] },
+    parameterValueTypes: { type: ['string', 'boolean', 'integer', 'number', 'object', 'array', 'null'] },
     keyVaultReference: {
       type: 'object',
       properties: {
         keyVault: {
           type: 'object',
-          properties: {id: {type: 'string', minLength: 1}},
+          properties: { id: { type: 'string', minLength: 1 } },
           required: ['id'],
           additionalProperties: false,
         },
-        secretName: {type: 'string', minLength: 1},
-        secretVersion: {type: 'string', minLength: 1},
+        secretName: { type: 'string', minLength: 1 },
+        secretVersion: { type: 'string', minLength: 1 },
       },
       required: ['keyVault', 'secretName'],
       additionalProperties: false,
@@ -275,15 +275,15 @@ export const input = {
       properties: {
         count: {
           oneOf: [
-            {$ref: 'https://schema.management.azure.com/schemas/common/definitions.json#/definitions/expression'},
-            {type: 'integer'},
+            { $ref: 'https://schema.management.azure.com/schemas/common/definitions.json#/definitions/expression' },
+            { type: 'integer' },
           ],
           description: 'Count of the copy',
         },
         input: {
           anyOf: [
-            {type: ['string', 'boolean', 'integer', 'array', 'object', 'null']},
-            {$ref: 'https://schema.management.azure.com/schemas/common/definitions.json#/definitions/expression'},
+            { type: ['string', 'boolean', 'integer', 'array', 'object', 'null'] },
+            { $ref: 'https://schema.management.azure.com/schemas/common/definitions.json#/definitions/expression' },
           ],
           description: 'Input of the copy',
         },
@@ -296,7 +296,7 @@ export const input = {
       oneOf: [
         {
           allOf: [
-            {$ref: '#/definitions/resourceBase'},
+            { $ref: '#/definitions/resourceBase' },
             {
               oneOf: [
                 {
@@ -7919,7 +7919,7 @@ export const input = {
         },
         {
           allOf: [
-            {$ref: '#/definitions/resourceBaseExternal'},
+            { $ref: '#/definitions/resourceBaseExternal' },
             {
               oneOf: [
                 {
@@ -7931,7 +7931,7 @@ export const input = {
         },
         {
           allOf: [
-            {$ref: '#/definitions/ARMResourceBase'},
+            { $ref: '#/definitions/ARMResourceBase' },
             {
               oneOf: [
                 {
@@ -7958,12 +7958,12 @@ export const input = {
     resourcesWithSymbolicNames: {
       type: 'object',
       description: 'Resources with symbolic names',
-      additionalProperties: {$ref: '#/definitions/resource'},
+      additionalProperties: { $ref: '#/definitions/resource' },
     },
     resourcesWithoutSymbolicNames: {
       type: 'array',
       description: 'Resources without symbolic names',
-      items: {$ref: '#/definitions/resource'},
+      items: { $ref: '#/definitions/resource' },
     },
   },
 }

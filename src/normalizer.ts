@@ -1,8 +1,9 @@
-import {JSONSchemaTypeName, LinkedJSONSchema, NormalizedJSONSchema, Parent} from './types/JSONSchema'
-import {appendToDescription, escapeBlockComment, isSchemaLike, justName, toSafeString, traverse} from './utils'
-import {Options} from './'
-import {DereferencedPaths} from './resolver'
-import {isDeepStrictEqual} from 'util'
+import { isDeepStrictEqual } from 'node:util'
+import type { JSONSchemaTypeName, LinkedJSONSchema, NormalizedJSONSchema } from './types/JSONSchema'
+import { Parent } from './types/JSONSchema'
+import { appendToDescription, escapeBlockComment, isSchemaLike, justName, toSafeString, traverse } from './utils'
+import type { DereferencedPaths } from './resolver'
+import type { Options } from './'
 
 type Rule = (
   schema: LinkedJSONSchema,
@@ -23,47 +24,42 @@ function isArrayType(schema: LinkedJSONSchema) {
   return schema.items !== undefined || hasType(schema, 'array') || hasType(schema, 'any')
 }
 
-rules.set('Remove `type=["null"]` if `enum=[null]`', schema => {
+rules.set('Remove `type=["null"]` if `enum=[null]`', (schema) => {
   if (
-    Array.isArray(schema.enum) &&
-    schema.enum.some(e => e === null) &&
-    Array.isArray(schema.type) &&
-    schema.type.includes('null')
-  ) {
+    Array.isArray(schema.enum)
+    && schema.enum.includes(null)
+    && Array.isArray(schema.type)
+    && schema.type.includes('null')
+  )
     schema.type = schema.type.filter(type => type !== 'null')
-  }
 })
 
-rules.set('Destructure unary types', schema => {
-  if (schema.type && Array.isArray(schema.type) && schema.type.length === 1) {
+rules.set('Destructure unary types', (schema) => {
+  if (schema.type && Array.isArray(schema.type) && schema.type.length === 1)
     schema.type = schema.type[0]
-  }
 })
 
-rules.set('Add empty `required` property if none is defined', schema => {
-  if (isObjectType(schema) && !('required' in schema)) {
+rules.set('Add empty `required` property if none is defined', (schema) => {
+  if (isObjectType(schema) && !('required' in schema))
     schema.required = []
-  }
 })
 
-rules.set('Transform `required`=false to `required`=[]', schema => {
-  if (schema.required === false) {
+rules.set('Transform `required`=false to `required`=[]', (schema) => {
+  if (schema.required === false)
     schema.required = []
-  }
 })
 
 rules.set('Default additionalProperties', (schema, _, options) => {
-  if (isObjectType(schema) && !('additionalProperties' in schema) && schema.patternProperties === undefined) {
+  if (isObjectType(schema) && !('additionalProperties' in schema) && schema.patternProperties === undefined)
     schema.additionalProperties = options.additionalProperties
-  }
 })
 
 rules.set('Transform id to $id', (schema, fileName) => {
-  if (!isSchemaLike(schema)) {
+  if (!isSchemaLike(schema))
     return
-  }
+
   if (schema.id && schema.$id && schema.id !== schema.$id) {
-    throw ReferenceError(
+    throw new ReferenceError(
       `Schema must define either id or $id, not both. Given id=${schema.id}, $id=${schema.$id} in ${fileName}`,
     )
   }
@@ -74,9 +70,8 @@ rules.set('Transform id to $id', (schema, fileName) => {
 })
 
 rules.set('Add an $id to anything that needs it', (schema, fileName, _options, _key, dereferencedPaths) => {
-  if (!isSchemaLike(schema)) {
+  if (!isSchemaLike(schema))
     return
-  }
 
   // Top-level schema
   if (!schema.$id && !schema[Parent]) {
@@ -85,83 +80,77 @@ rules.set('Add an $id to anything that needs it', (schema, fileName, _options, _
   }
 
   // Sub-schemas with references
-  if (!isArrayType(schema) && !isObjectType(schema)) {
+  if (!isArrayType(schema) && !isObjectType(schema))
     return
-  }
 
   // We'll infer from $id and title downstream
   // TODO: Normalize upstream
   const dereferencedName = dereferencedPaths.get(schema)
-  if (!schema.$id && !schema.title && dereferencedName) {
+  if (!schema.$id && !schema.title && dereferencedName)
     schema.$id = toSafeString(justName(dereferencedName))
-  }
 
-  if (dereferencedName) {
+  if (dereferencedName)
     dereferencedPaths.delete(schema)
-  }
 })
 
-rules.set('Escape closing JSDoc comment', schema => {
+rules.set('Escape closing JSDoc comment', (schema) => {
   escapeBlockComment(schema)
 })
 
-rules.set('Add JSDoc comments for minItems and maxItems', schema => {
-  if (!isArrayType(schema)) {
+rules.set('Add JSDoc comments for minItems and maxItems', (schema) => {
+  if (!isArrayType(schema))
     return
-  }
+
   const commentsToAppend = [
     'minItems' in schema ? `@minItems ${schema.minItems}` : '',
     'maxItems' in schema ? `@maxItems ${schema.maxItems}` : '',
   ].filter(Boolean)
-  if (commentsToAppend.length) {
+  if (commentsToAppend.length)
     schema.description = appendToDescription(schema.description, ...commentsToAppend)
-  }
 })
 
 rules.set('Optionally remove maxItems and minItems', (schema, _fileName, options) => {
-  if (!isArrayType(schema)) {
+  if (!isArrayType(schema))
     return
-  }
-  if ('minItems' in schema && options.ignoreMinAndMaxItems) {
+
+  if ('minItems' in schema && options.ignoreMinAndMaxItems)
     delete schema.minItems
-  }
-  if ('maxItems' in schema && (options.ignoreMinAndMaxItems || options.maxItems === -1)) {
+
+  if ('maxItems' in schema && (options.ignoreMinAndMaxItems || options.maxItems === -1))
     delete schema.maxItems
-  }
 })
 
 rules.set('Normalize schema.minItems', (schema, _fileName, options) => {
-  if (options.ignoreMinAndMaxItems) {
+  if (options.ignoreMinAndMaxItems)
     return
-  }
+
   // make sure we only add the props onto array types
-  if (!isArrayType(schema)) {
+  if (!isArrayType(schema))
     return
-  }
-  const {minItems} = schema
+
+  const { minItems } = schema
   schema.minItems = typeof minItems === 'number' ? minItems : 0
   // cannot normalize maxItems because maxItems = 0 has an actual meaning
 })
 
 rules.set('Remove maxItems if it is big enough to likely cause OOMs', (schema, _fileName, options) => {
-  if (options.ignoreMinAndMaxItems || options.maxItems === -1) {
+  if (options.ignoreMinAndMaxItems || options.maxItems === -1)
     return
-  }
-  if (!isArrayType(schema)) {
+
+  if (!isArrayType(schema))
     return
-  }
-  const {maxItems, minItems} = schema
+
+  const { maxItems, minItems } = schema
   // minItems is guaranteed to be a number after the previous rule runs
-  if (maxItems !== undefined && maxItems - (minItems as number) > options.maxItems) {
+  if (maxItems !== undefined && maxItems - (minItems as number) > options.maxItems)
     delete schema.maxItems
-  }
 })
 
 rules.set('Normalize schema.items', (schema, _fileName, options) => {
-  if (options.ignoreMinAndMaxItems) {
+  if (options.ignoreMinAndMaxItems)
     return
-  }
-  const {maxItems, minItems} = schema
+
+  const { maxItems, minItems } = schema
   const hasMaxItems = typeof maxItems === 'number' && maxItems >= 0
   const hasMinItems = typeof minItems === 'number' && minItems > 0
 
@@ -185,27 +174,25 @@ rules.set('Normalize schema.items', (schema, _fileName, options) => {
   return schema
 })
 
-rules.set('Remove extends, if it is empty', schema => {
-  if (!schema.hasOwnProperty('extends')) {
+rules.set('Remove extends, if it is empty', (schema) => {
+  if (!schema.hasOwnProperty('extends'))
     return
-  }
-  if (schema.extends == null || (Array.isArray(schema.extends) && schema.extends.length === 0)) {
+
+  if (schema.extends == null || (Array.isArray(schema.extends) && schema.extends.length === 0))
     delete schema.extends
-  }
 })
 
-rules.set('Make extends always an array, if it is defined', schema => {
-  if (schema.extends == null) {
+rules.set('Make extends always an array, if it is defined', (schema) => {
+  if (schema.extends == null)
     return
-  }
-  if (!Array.isArray(schema.extends)) {
+
+  if (!Array.isArray(schema.extends))
     schema.extends = [schema.extends]
-  }
 })
 
 rules.set('Transform definitions to $defs', (schema, fileName) => {
   if (schema.definitions && schema.$defs && !isDeepStrictEqual(schema.definitions, schema.$defs)) {
-    throw ReferenceError(
+    throw new ReferenceError(
       `Schema must define either definitions or $defs, not both. Given id=${schema.id} in ${fileName}`,
     )
   }
@@ -215,7 +202,7 @@ rules.set('Transform definitions to $defs', (schema, fileName) => {
   }
 })
 
-rules.set('Transform const to singleton enum', schema => {
+rules.set('Transform const to singleton enum', (schema) => {
   if (schema.const !== undefined) {
     schema.enum = [schema.const]
     delete schema.const

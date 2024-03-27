@@ -1,5 +1,6 @@
-import {isPlainObject} from 'lodash'
-import {isCompound, JSONSchema, SchemaType} from './types/JSONSchema'
+import { isPlainObject } from 'lodash'
+import type { JSONSchema, SchemaType } from './types/JSONSchema'
+import { isCompound } from './types/JSONSchema'
 
 /**
  * Duck types a JSONSchema schema or property to determine which kind of AST node to parse it into.
@@ -11,22 +12,19 @@ import {isCompound, JSONSchema, SchemaType} from './types/JSONSchema'
  */
 export function typesOfSchema(schema: JSONSchema): readonly [SchemaType, ...SchemaType[]] {
   // tsType is an escape hatch that supercedes all other directives
-  if (schema.tsType) {
+  if (schema.tsType)
     return ['CUSTOM_TYPE']
-  }
 
   // Collect matched types
   const matchedTypes: SchemaType[] = []
   for (const [schemaType, f] of Object.entries(matchers)) {
-    if (f(schema)) {
+    if (f(schema))
       matchedTypes.push(schemaType as SchemaType)
-    }
   }
 
   // Default to an unnamed schema
-  if (!matchedTypes.length) {
+  if (!matchedTypes.length)
     return ['UNNAMED_SCHEMA']
-  }
 
   return matchedTypes as [SchemaType, ...SchemaType[]]
 }
@@ -47,15 +45,15 @@ const matchers: Record<SchemaType, (schema: JSONSchema) => boolean> = {
     return 'anyOf' in schema
   },
   BOOLEAN(schema) {
-    if ('enum' in schema) {
+    if ('enum' in schema)
       return false
-    }
-    if (schema.type === 'boolean') {
+
+    if (schema.type === 'boolean')
       return true
-    }
-    if (!isCompound(schema) && typeof schema.default === 'boolean') {
+
+    if (!isCompound(schema) && typeof schema.default === 'boolean')
       return true
-    }
+
     return false
   },
   CUSTOM_TYPE() {
@@ -75,27 +73,27 @@ const matchers: Record<SchemaType, (schema: JSONSchema) => boolean> = {
     return schema.type === 'null'
   },
   NUMBER(schema) {
-    if ('enum' in schema) {
+    if ('enum' in schema)
       return false
-    }
-    if (schema.type === 'integer' || schema.type === 'number') {
+
+    if (schema.type === 'integer' || schema.type === 'number')
       return true
-    }
-    if (!isCompound(schema) && typeof schema.default === 'number') {
+
+    if (!isCompound(schema) && typeof schema.default === 'number')
       return true
-    }
+
     return false
   },
   OBJECT(schema) {
     return (
-      schema.type === 'object' &&
-      !isPlainObject(schema.additionalProperties) &&
-      !schema.allOf &&
-      !schema.anyOf &&
-      !schema.oneOf &&
-      !schema.patternProperties &&
-      !schema.properties &&
-      !schema.required
+      schema.type === 'object'
+      && !isPlainObject(schema.additionalProperties)
+      && !schema.allOf
+      && !schema.anyOf
+      && !schema.oneOf
+      && !schema.patternProperties
+      && !schema.properties
+      && !schema.required
     )
   },
   ONE_OF(schema) {
@@ -105,39 +103,39 @@ const matchers: Record<SchemaType, (schema: JSONSchema) => boolean> = {
     return '$ref' in schema
   },
   STRING(schema) {
-    if ('enum' in schema) {
+    if ('enum' in schema)
       return false
-    }
-    if (schema.type === 'string') {
+
+    if (schema.type === 'string')
       return true
-    }
-    if (!isCompound(schema) && typeof schema.default === 'string') {
+
+    if (!isCompound(schema) && typeof schema.default === 'string')
       return true
-    }
+
     return false
   },
   TYPED_ARRAY(schema) {
-    if (schema.type && schema.type !== 'array') {
+    if (schema.type && schema.type !== 'array')
       return false
-    }
+
     return 'items' in schema
   },
   UNION(schema) {
     return Array.isArray(schema.type)
   },
   UNNAMED_ENUM(schema) {
-    if ('tsEnumNames' in schema) {
+    if ('tsEnumNames' in schema)
       return false
-    }
+
     if (
-      schema.type &&
-      schema.type !== 'boolean' &&
-      schema.type !== 'integer' &&
-      schema.type !== 'number' &&
-      schema.type !== 'string'
-    ) {
+      schema.type
+      && schema.type !== 'boolean'
+      && schema.type !== 'integer'
+      && schema.type !== 'number'
+      && schema.type !== 'string'
+    )
       return false
-    }
+
     return 'enum' in schema
   },
   UNNAMED_SCHEMA() {

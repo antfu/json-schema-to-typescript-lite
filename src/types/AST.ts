@@ -1,4 +1,4 @@
-import {JSONSchema4Type} from 'json-schema'
+import type { JSONSchema4Type } from 'json-schema'
 
 export type AST_TYPE = AST['type']
 
@@ -30,15 +30,15 @@ export interface AbstractAST {
   deprecated?: boolean
 }
 
-export type ASTWithComment = AST & {comment: string}
-export type ASTWithName = AST & {keyName: string}
-export type ASTWithStandaloneName = AST & {standaloneName: string}
+export type ASTWithComment = AST & { comment: string }
+export type ASTWithName = AST & { keyName: string }
+export type ASTWithStandaloneName = AST & { standaloneName: string }
 
 export function hasComment(ast: AST): ast is ASTWithComment {
   return (
-    ('comment' in ast && ast.comment != null && ast.comment !== '') ||
+    ('comment' in ast && ast.comment != null && ast.comment !== '')
     // Compare to true because ast.deprecated might be undefined
-    ('deprecated' in ast && ast.deprecated === true)
+    || ('deprecated' in ast && ast.deprecated === true)
   )
 }
 
@@ -46,7 +46,7 @@ export function hasStandaloneName(ast: AST): ast is ASTWithStandaloneName {
   return 'standaloneName' in ast && ast.standaloneName != null && ast.standaloneName !== ''
 }
 
-////////////////////////////////////////////     types
+/// /////////////////////////////////////////     types
 
 export interface TAny extends AbstractAST {
   type: 'ANY'
@@ -150,7 +150,7 @@ export interface TCustomType extends AbstractAST {
   params: string
 }
 
-////////////////////////////////////////////     literals
+/// /////////////////////////////////////////     literals
 
 export const T_ANY: TAny = {
   type: 'ANY',

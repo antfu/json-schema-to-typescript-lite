@@ -4,6 +4,6 @@ export const input = {
   },
   properties: {
     a: {},
-    b: {$ref: '#/definitions/b'},
+    b: { $ref: '#/definitions/b' },
   },
 }

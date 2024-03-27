@@ -715,7 +715,7 @@ export const input = {
     ConsumedSpiceCapacityInBytes: {
       type: 'number',
       description:
-        "<p>The amount of SPICE capacity used by this dataset. This is 0 if the dataset isn't\n            imported into SPICE.</p>",
+        '<p>The amount of SPICE capacity used by this dataset. This is 0 if the dataset isn\'t\n            imported into SPICE.</p>',
     },
     CreatedTime: {
       type: 'string',

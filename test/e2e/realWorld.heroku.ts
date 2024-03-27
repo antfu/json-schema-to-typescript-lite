@@ -170,7 +170,7 @@ export const input = {
         },
       },
     },
-    account: {
+    'account': {
       description: 'An account represents an individual signed up to use the Heroku platform.',
       $schema: 'http://json-schema.org/draft-04/hyper-schema',
       stability: 'production',
@@ -776,7 +776,7 @@ export const input = {
       links: [
         {
           description:
-            "Get an add-on's config. Accessible by customers with access and by the add-on partner providing this add-on.",
+            'Get an add-on\'s config. Accessible by customers with access and by the add-on partner providing this add-on.',
           href: '/addons/{(%23%2Fdefinitions%2Fadd-on%2Fdefinitions%2Fidentity)}/config',
           method: 'GET',
           rel: 'instances',
@@ -789,7 +789,7 @@ export const input = {
           title: 'List',
         },
         {
-          description: "Update an add-on's config. Can only be accessed by the add-on partner providing this add-on.",
+          description: 'Update an add-on\'s config. Can only be accessed by the add-on partner providing this add-on.',
           href: '/addons/{(%23%2Fdefinitions%2Fadd-on%2Fdefinitions%2Fidentity)}/config',
           method: 'PATCH',
           rel: 'update',
@@ -974,7 +974,7 @@ export const input = {
       type: ['object'],
       definitions: {
         cli_plugin_name: {
-          description: "npm package name of the add-on service's Heroku CLI plugin",
+          description: 'npm package name of the add-on service\'s Heroku CLI plugin',
           example: 'heroku-papertrail',
           readOnly: true,
           type: ['string', 'null'],
@@ -1179,7 +1179,7 @@ export const input = {
           type: ['string'],
         },
         state: {
-          description: "state in the add-on's lifecycle",
+          description: 'state in the add-on\'s lifecycle',
           enum: ['provisioning', 'provisioned', 'deprovisioned'],
           example: 'provisioned',
           readOnly: true,
@@ -1209,7 +1209,7 @@ export const input = {
           schema: {
             properties: {
               attachment: {
-                description: "name for add-on's initial attachment",
+                description: 'name for add-on\'s initial attachment',
                 example: {
                   name: 'DATABASE_FOLLOWER',
                 },
@@ -2066,7 +2066,7 @@ export const input = {
         },
       },
     },
-    app: {
+    'app': {
       description: 'An app represents the program that you would like to deploy and run on Heroku.',
       $schema: 'http://json-schema.org/draft-04/hyper-schema',
       stability: 'production',
@@ -2480,7 +2480,7 @@ export const input = {
             $ref: '#/definitions/build-result/definitions/line',
           },
           description:
-            "A list of all the lines of a build's output. This has been replaced by the `output_stream_url` attribute on the build resource.",
+            'A list of all the lines of a build\'s output. This has been replaced by the `output_stream_url` attribute on the build resource.',
           example: [
             {
               line: '-----> Ruby app detected\n',
@@ -2490,7 +2490,7 @@ export const input = {
         },
       },
     },
-    build: {
+    'build': {
       $schema: 'http://json-schema.org/draft-04/hyper-schema',
       description: 'A build represents the process of transforming a code tarball into a slug',
       title: 'Heroku Build API - Build',
@@ -2751,7 +2751,7 @@ export const input = {
       },
       links: [
         {
-          description: "Update an app's buildpack installations.",
+          description: 'Update an app\'s buildpack installations.',
           href: '/apps/{(%23%2Fdefinitions%2Fapp%2Fdefinitions%2Fidentity)}/buildpack-installations',
           method: 'PUT',
           rel: 'update',
@@ -2777,7 +2777,7 @@ export const input = {
           title: 'Update',
         },
         {
-          description: "List an app's existing buildpack installations.",
+          description: 'List an app\'s existing buildpack installations.',
           href: '/apps/{(%23%2Fdefinitions%2Fapp%2Fdefinitions%2Fidentity)}/buildpack-installations',
           method: 'GET',
           rel: 'instances',
@@ -2808,7 +2808,7 @@ export const input = {
         },
       },
     },
-    collaborator: {
+    'collaborator': {
       description: 'A collaborator represents an account that has been given access to an app on Heroku.',
       $schema: 'http://json-schema.org/draft-04/hyper-schema',
       additionalProperties: false,
@@ -3050,7 +3050,7 @@ export const input = {
         },
       },
     },
-    credit: {
+    'credit': {
       $schema: 'http://json-schema.org/draft-04/hyper-schema',
       description: 'A credit represents value that will be used up before further charges are assigned to an account.',
       stability: 'development',
@@ -3179,7 +3179,7 @@ export const input = {
         },
       },
     },
-    domain: {
+    'domain': {
       description: 'Domains define what web routes should be routed to an app on Heroku.',
       $schema: 'http://json-schema.org/draft-04/hyper-schema',
       stability: 'production',
@@ -3201,7 +3201,7 @@ export const input = {
           type: ['null', 'string'],
         },
         status: {
-          description: "status of this record's cname",
+          description: 'status of this record\'s cname',
           example: 'pending',
           readOnly: true,
           type: ['string'],
@@ -3469,7 +3469,7 @@ export const input = {
         },
       },
     },
-    dyno: {
+    'dyno': {
       description:
         'Dynos encapsulate running processes of an app on Heroku. Detailed information about dyno sizes can be found at: [https://devcenter.heroku.com/articles/dyno-types](https://devcenter.heroku.com/articles/dyno-types).',
       $schema: 'http://json-schema.org/draft-04/hyper-schema',
@@ -3730,7 +3730,7 @@ export const input = {
         },
       },
     },
-    event: {
+    'event': {
       description: 'An event represents an action performed on another API resource.',
       $schema: 'http://json-schema.org/draft-04/hyper-schema',
       stability: 'development',
@@ -3858,7 +3858,7 @@ export const input = {
           type: ['string'],
         },
         sequence: {
-          description: "a numeric string representing the event's sequence",
+          description: 'a numeric string representing the event\'s sequence',
           example: '1234567890',
           pattern: '^[0-9]{1,128}$',
           readOnly: true,
@@ -3872,7 +3872,7 @@ export const input = {
           type: ['string'],
         },
         version: {
-          description: "the event's API version string",
+          description: 'the event\'s API version string',
           example: 'application/vnd.heroku+json; version=3',
           readOnly: true,
           type: ['string'],
@@ -4073,7 +4073,7 @@ export const input = {
         },
       ],
     },
-    formation: {
+    'formation': {
       description:
         'The formation of processes that should be maintained for an app. Update the formation to scale processes or change dyno sizes. Available process type names and commands are defined by the `process_types` attribute for the [slug](#slug) currently released on an app.',
       $schema: 'http://json-schema.org/draft-04/hyper-schema',
@@ -4323,7 +4323,7 @@ export const input = {
       },
       links: [
         {
-          description: "Get a list of an organization's Identity Providers",
+          description: 'Get a list of an organization\'s Identity Providers',
           href: '/organizations/{(%23%2Fdefinitions%2Forganization%2Fdefinitions%2Fname)}/identity-providers',
           method: 'GET',
           rel: 'instances',
@@ -4364,7 +4364,7 @@ export const input = {
           title: 'Create',
         },
         {
-          description: "Update an organization's Identity Provider",
+          description: 'Update an organization\'s Identity Provider',
           href: '/organizations/{(%23%2Fdefinitions%2Forganization%2Fdefinitions%2Fname)}/identity-providers/{(%23%2Fdefinitions%2Fidentity-provider%2Fdefinitions%2Fid)}',
           method: 'PATCH',
           rel: 'update',
@@ -4391,7 +4391,7 @@ export const input = {
           title: 'Update',
         },
         {
-          description: "Delete an organization's Identity Provider",
+          description: 'Delete an organization\'s Identity Provider',
           href: '/organizations/{(%23%2Fdefinitions%2Forganization%2Fdefinitions%2Fname)}/identity-providers/{(%23%2Fdefinitions%2Fidentity-provider%2Fdefinitions%2Fid)}',
           method: 'DELETE',
           rel: 'destroy',
@@ -4480,7 +4480,7 @@ export const input = {
           ],
         },
         rule: {
-          description: "the combination of an IP address in CIDR notation and whether to allow or deny it's traffic.",
+          description: 'the combination of an IP address in CIDR notation and whether to allow or deny it\'s traffic.',
           type: ['object'],
           properties: {
             action: {
@@ -4564,7 +4564,7 @@ export const input = {
         },
       },
     },
-    invitation: {
+    'invitation': {
       description: 'An invitation represents an invite sent to a user to use the Heroku platform.',
       $schema: 'http://json-schema.org/draft-04/hyper-schema',
       stability: 'production',
@@ -4866,7 +4866,7 @@ export const input = {
         },
       },
     },
-    invoice: {
+    'invoice': {
       $schema: 'http://json-schema.org/draft-04/hyper-schema',
       description: 'An invoice is an itemized bill of goods for an account which includes pricing and charges.',
       stability: 'development',
@@ -5003,7 +5003,7 @@ export const input = {
         },
       },
     },
-    key: {
+    'key': {
       description:
         'Keys represent public SSH keys associated with an account and are used to authorize accounts as they are performing git operations.',
       $schema: 'http://json-schema.org/draft-04/hyper-schema',
@@ -5027,7 +5027,7 @@ export const input = {
         },
         email: {
           deprecated: true,
-          description: "deprecated. Please refer to 'comment' instead",
+          description: 'deprecated. Please refer to \'comment\' instead',
           example: 'username@host',
           readOnly: true,
           type: ['string'],
@@ -5547,7 +5547,7 @@ export const input = {
           $ref: '#/definitions/oauth-authorization/definitions/created_at',
         },
         grant: {
-          description: "this authorization's grant",
+          description: 'this authorization\'s grant',
           properties: {
             code: {
               $ref: '#/definitions/oauth-grant/definitions/code',
@@ -6656,7 +6656,7 @@ export const input = {
       },
       links: [
         {
-          description: "Get a list of an organization's Identity Providers",
+          description: 'Get a list of an organization\'s Identity Providers',
           title: 'List',
           href: '/organizations/{(%23%2Fdefinitions%2Forganization%2Fdefinitions%2Fname)}/invitations',
           method: 'GET',
@@ -7184,7 +7184,7 @@ export const input = {
       },
     },
     'organization-preferences': {
-      description: "Tracks an organization's preferences",
+      description: 'Tracks an organization\'s preferences',
       $schema: 'http://json-schema.org/draft-04/hyper-schema',
       stability: 'prototype',
       strictProperties: true,
@@ -7198,7 +7198,7 @@ export const input = {
           enum: ['admin', 'member', 'viewer', null],
           type: ['null', 'string'],
         },
-        identity: {
+        'identity': {
           $ref: '#/definitions/organization/definitions/identity',
         },
         'whitelisting-enabled': {
@@ -7247,7 +7247,7 @@ export const input = {
         },
       },
     },
-    organization: {
+    'organization': {
       $schema: 'http://json-schema.org/draft-04/hyper-schema',
       description:
         'Organizations allow you to manage access to a shared group of applications across your development team.',
@@ -7721,7 +7721,7 @@ export const input = {
       },
       links: [
         {
-          description: "Reset account's password. This will send a reset password link to the user's email address.",
+          description: 'Reset account\'s password. This will send a reset password link to the user\'s email address.',
           href: '/password-resets',
           method: 'POST',
           rel: 'self',
@@ -7824,7 +7824,7 @@ export const input = {
       },
     },
     'pipeline-coupling': {
-      description: "Information about an app's coupling to a pipeline",
+      description: 'Information about an app\'s coupling to a pipeline',
       $schema: 'http://json-schema.org/draft-04/hyper-schema',
       stability: 'prototype',
       title: 'Heroku Platform API - Pipeline Coupling',
@@ -8252,7 +8252,7 @@ export const input = {
         },
       },
     },
-    pipeline: {
+    'pipeline': {
       description: 'A pipeline allows grouping of apps into different stages.',
       $schema: 'http://json-schema.org/draft-04/hyper-schema',
       stability: 'prototype',
@@ -8386,7 +8386,7 @@ export const input = {
         },
       },
     },
-    plan: {
+    'plan': {
       description:
         'Plans represent different configurations of add-ons that may be added to apps. Endpoints under add-on services can be accessed without authentication.',
       $schema: 'http://json-schema.org/draft-04/hyper-schema',
@@ -8647,7 +8647,7 @@ export const input = {
         },
       },
     },
-    region: {
+    'region': {
       description: 'A region represents a geographic location in which your application may run.',
       $schema: 'http://json-schema.org/draft-04/hyper-schema',
       stability: 'production',
@@ -8791,7 +8791,7 @@ export const input = {
         },
       },
     },
-    release: {
+    'release': {
       description: 'A release represents a combination of code, config vars and add-ons for an app on Heroku.',
       $schema: 'http://json-schema.org/draft-04/hyper-schema',
       stability: 'production',
@@ -8988,7 +8988,7 @@ export const input = {
         },
       },
     },
-    slug: {
+    'slug': {
       description: 'A slug is a snapshot of your application code that is ready to run on the platform.',
       $schema: 'http://json-schema.org/draft-04/hyper-schema',
       stability: 'production',
@@ -9422,8 +9422,8 @@ export const input = {
         },
       },
     },
-    source: {
-      description: "A source is a location for uploading and downloading an application's source code.",
+    'source': {
+      description: 'A source is a location for uploading and downloading an application\'s source code.',
       $schema: 'http://json-schema.org/draft-04/hyper-schema',
       stability: 'production',
       strictProperties: true,
@@ -9516,7 +9516,7 @@ export const input = {
           title: 'Info',
         },
         {
-          description: "Update an existing user's set of permissions on a space.",
+          description: 'Update an existing user\'s set of permissions on a space.',
           href: '/spaces/{(%23%2Fdefinitions%2Fspace%2Fdefinitions%2Fidentity)}/members/{(%23%2Fdefinitions%2Faccount%2Fdefinitions%2Fidentity)}',
           method: 'PATCH',
           rel: 'update',
@@ -9679,7 +9679,7 @@ export const input = {
         },
       },
     },
-    space: {
+    'space': {
       description:
         'A space is an isolated, highly available, secure app execution environments, running in the modern VPC substrate.',
       $schema: 'http://json-schema.org/draft-04/hyper-schema',
@@ -10066,7 +10066,7 @@ export const input = {
         },
       },
     },
-    stack: {
+    'stack': {
       description: 'Stacks are the different application execution environments available in the Heroku platform.',
       $schema: 'http://json-schema.org/draft-04/hyper-schema',
       stability: 'production',
@@ -10162,35 +10162,35 @@ export const input = {
       },
     },
     'user-preferences': {
-      description: "Tracks a user's preferences and message dismissals",
+      description: 'Tracks a user\'s preferences and message dismissals',
       $schema: 'http://json-schema.org/draft-04/hyper-schema',
       stability: 'production',
       strictProperties: true,
       title: 'Heroku Platform API - User Preferences',
       type: ['object'],
       definitions: {
-        identity: {
+        'identity': {
           anyOf: [
             {
               $ref: '#/definitions/user-preferences/definitions/self',
             },
           ],
         },
-        self: {
+        'self': {
           description: 'Implicit reference to currently authorized user',
           enum: ['~'],
           example: '~',
           readOnly: true,
           type: ['string'],
         },
-        timezone: {
-          description: "User's default timezone",
+        'timezone': {
+          description: 'User\'s default timezone',
           example: 'UTC',
           readOnly: false,
           type: ['string', 'null'],
         },
         'default-organization': {
-          description: "User's default organization",
+          description: 'User\'s default organization',
           example: 'sushi-inc',
           readOnly: false,
           type: ['string', 'null'],
@@ -10266,7 +10266,7 @@ export const input = {
           schema: {
             type: ['object'],
             properties: {
-              timezone: {
+              'timezone': {
                 $ref: '#/definitions/user-preferences/definitions/timezone',
               },
               'default-organization': {
@@ -10305,7 +10305,7 @@ export const input = {
         },
       ],
       properties: {
-        timezone: {
+        'timezone': {
           $ref: '#/definitions/user-preferences/definitions/timezone',
         },
         'default-organization': {
@@ -10469,7 +10469,7 @@ export const input = {
     'account-feature': {
       $ref: '#/definitions/account-feature',
     },
-    account: {
+    'account': {
       $ref: '#/definitions/account',
     },
     'add-on-action': {
@@ -10505,37 +10505,37 @@ export const input = {
     'app-transfer': {
       $ref: '#/definitions/app-transfer',
     },
-    app: {
+    'app': {
       $ref: '#/definitions/app',
     },
     'build-result': {
       $ref: '#/definitions/build-result',
     },
-    build: {
+    'build': {
       $ref: '#/definitions/build',
     },
     'buildpack-installation': {
       $ref: '#/definitions/buildpack-installation',
     },
-    collaborator: {
+    'collaborator': {
       $ref: '#/definitions/collaborator',
     },
     'config-var': {
       $ref: '#/definitions/config-var',
     },
-    credit: {
+    'credit': {
       $ref: '#/definitions/credit',
     },
-    domain: {
+    'domain': {
       $ref: '#/definitions/domain',
     },
     'dyno-size': {
       $ref: '#/definitions/dyno-size',
     },
-    dyno: {
+    'dyno': {
       $ref: '#/definitions/dyno',
     },
-    event: {
+    'event': {
       $ref: '#/definitions/event',
     },
     'failed-event': {
@@ -10544,7 +10544,7 @@ export const input = {
     'filter-apps': {
       $ref: '#/definitions/filter-apps',
     },
-    formation: {
+    'formation': {
       $ref: '#/definitions/formation',
     },
     'identity-provider': {
@@ -10553,16 +10553,16 @@ export const input = {
     'inbound-ruleset': {
       $ref: '#/definitions/inbound-ruleset',
     },
-    invitation: {
+    'invitation': {
       $ref: '#/definitions/invitation',
     },
     'invoice-address': {
       $ref: '#/definitions/invoice-address',
     },
-    invoice: {
+    'invoice': {
       $ref: '#/definitions/invoice',
     },
-    key: {
+    'key': {
       $ref: '#/definitions/key',
     },
     'log-drain': {
@@ -10607,7 +10607,7 @@ export const input = {
     'organization-preferences': {
       $ref: '#/definitions/organization-preferences',
     },
-    organization: {
+    'organization': {
       $ref: '#/definitions/organization',
     },
     'outbound-ruleset': {
@@ -10628,22 +10628,22 @@ export const input = {
     'pipeline-promotion': {
       $ref: '#/definitions/pipeline-promotion',
     },
-    pipeline: {
+    'pipeline': {
       $ref: '#/definitions/pipeline',
     },
-    plan: {
+    'plan': {
       $ref: '#/definitions/plan',
     },
     'rate-limit': {
       $ref: '#/definitions/rate-limit',
     },
-    region: {
+    'region': {
       $ref: '#/definitions/region',
     },
-    release: {
+    'release': {
       $ref: '#/definitions/release',
     },
-    slug: {
+    'slug': {
       $ref: '#/definitions/slug',
     },
     'sms-number': {
@@ -10652,7 +10652,7 @@ export const input = {
     'sni-endpoint': {
       $ref: '#/definitions/sni-endpoint',
     },
-    source: {
+    'source': {
       $ref: '#/definitions/source',
     },
     'space-app-access': {
@@ -10661,13 +10661,13 @@ export const input = {
     'space-nat': {
       $ref: '#/definitions/space-nat',
     },
-    space: {
+    'space': {
       $ref: '#/definitions/space',
     },
     'ssl-endpoint': {
       $ref: '#/definitions/ssl-endpoint',
     },
-    stack: {
+    'stack': {
       $ref: '#/definitions/stack',
     },
     'user-preferences': {

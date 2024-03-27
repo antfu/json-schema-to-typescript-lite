@@ -1,4 +1,4 @@
-import {Options} from '../../src'
+import type { Options } from '../../src'
 
 export const input = {
   $schema: 'http://json-schema.org/draft-06/schema#',
@@ -1107,7 +1107,7 @@ export const input = {
     positiveInt: {
       pattern: '^[1-9][0-9]*$',
       type: 'number',
-      description: 'An integer with a value that is positive (e.g. \u003e0)',
+      description: 'An integer with a value that is positive (e.g. \u003E0)',
     },
     string: {
       pattern: '^[ \\r\\n\\t\\S]+$',
@@ -1122,7 +1122,7 @@ export const input = {
     unsignedInt: {
       pattern: '^[0]|([1-9][0-9]*)$',
       type: 'number',
-      description: 'An integer with a value that is not negative (e.g. \u003e\u003d 0)',
+      description: 'An integer with a value that is not negative (e.g. \u003E\u003D 0)',
     },
     uri: {
       pattern: '^\\S*$',
@@ -1188,7 +1188,7 @@ export const input = {
         valueBase64Binary: {
           description:
             'Value of extension - must be one of a constrained set of the data types (see [Extensibility](extensibility.html) for a list).',
-          pattern: '^(\\s*([0-9a-zA-Z\\+/\u003d]){4}\\s*)+$',
+          pattern: '^(\\s*([0-9a-zA-Z\\+/\u003D]){4}\\s*)+$',
           type: 'string',
         },
         _valueBase64Binary: {
@@ -1888,8 +1888,8 @@ export const input = {
         },
         comparator: {
           description:
-            'How the value should be understood and represented - whether the actual value is greater or less than the stated value due to measurement issues; e.g. if the comparator is "\u003c" , then the real value is \u003c stated value.',
-          enum: ['\u003c', '\u003c\u003d', '\u003e\u003d', '\u003e'],
+            'How the value should be understood and represented - whether the actual value is greater or less than the stated value due to measurement issues; e.g. if the comparator is "\u003C" , then the real value is \u003C stated value.',
+          enum: ['\u003C', '\u003C\u003D', '\u003E\u003D', '\u003E'],
         },
         _comparator: {
           description: 'Extensions for comparator',
@@ -1949,8 +1949,8 @@ export const input = {
         },
         comparator: {
           description:
-            'How the value should be understood and represented - whether the actual value is greater or less than the stated value due to measurement issues; e.g. if the comparator is "\u003c" , then the real value is \u003c stated value.',
-          enum: ['\u003c', '\u003c\u003d', '\u003e\u003d', '\u003e'],
+            'How the value should be understood and represented - whether the actual value is greater or less than the stated value due to measurement issues; e.g. if the comparator is "\u003C" , then the real value is \u003C stated value.',
+          enum: ['\u003C', '\u003C\u003D', '\u003E\u003D', '\u003E'],
         },
         _comparator: {
           description: 'Extensions for comparator',
@@ -2010,8 +2010,8 @@ export const input = {
         },
         comparator: {
           description:
-            'How the value should be understood and represented - whether the actual value is greater or less than the stated value due to measurement issues; e.g. if the comparator is "\u003c" , then the real value is \u003c stated value.',
-          enum: ['\u003c', '\u003c\u003d', '\u003e\u003d', '\u003e'],
+            'How the value should be understood and represented - whether the actual value is greater or less than the stated value due to measurement issues; e.g. if the comparator is "\u003C" , then the real value is \u003C stated value.',
+          enum: ['\u003C', '\u003C\u003D', '\u003E\u003D', '\u003E'],
         },
         _comparator: {
           description: 'Extensions for comparator',
@@ -2072,8 +2072,8 @@ export const input = {
         },
         comparator: {
           description:
-            'How the value should be understood and represented - whether the actual value is greater or less than the stated value due to measurement issues; e.g. if the comparator is "\u003c" , then the real value is \u003c stated value.',
-          enum: ['\u003c', '\u003c\u003d', '\u003e\u003d', '\u003e'],
+            'How the value should be understood and represented - whether the actual value is greater or less than the stated value due to measurement issues; e.g. if the comparator is "\u003C" , then the real value is \u003C stated value.',
+          enum: ['\u003C', '\u003C\u003D', '\u003E\u003D', '\u003E'],
         },
         _comparator: {
           description: 'Extensions for comparator',
@@ -2168,8 +2168,8 @@ export const input = {
         },
         comparator: {
           description:
-            'How the value should be understood and represented - whether the actual value is greater or less than the stated value due to measurement issues; e.g. if the comparator is "\u003c" , then the real value is \u003c stated value.',
-          enum: ['\u003c', '\u003c\u003d', '\u003e\u003d', '\u003e'],
+            'How the value should be understood and represented - whether the actual value is greater or less than the stated value due to measurement issues; e.g. if the comparator is "\u003C" , then the real value is \u003C stated value.',
+          enum: ['\u003C', '\u003C\u003D', '\u003E\u003D', '\u003E'],
         },
         _comparator: {
           description: 'Extensions for comparator',
@@ -4474,7 +4474,7 @@ export const input = {
         defaultValueBase64Binary: {
           description:
             'The value that should be used if there is no value stated in the instance (e.g. \u0027if not otherwise specified, the abstract is false\u0027).',
-          pattern: '^(\\s*([0-9a-zA-Z\\+/\u003d]){4}\\s*)+$',
+          pattern: '^(\\s*([0-9a-zA-Z\\+/\u003D]){4}\\s*)+$',
           type: 'string',
         },
         _defaultValueBase64Binary: {
@@ -4840,7 +4840,7 @@ export const input = {
         fixedBase64Binary: {
           description:
             'Specifies a value that SHALL be exactly the value  for this element in the instance. For purposes of comparison, non-significant whitespace is ignored, and all values must be an exact match (case and accent sensitive). Missing elements/attributes must also be missing.',
-          pattern: '^(\\s*([0-9a-zA-Z\\+/\u003d]){4}\\s*)+$',
+          pattern: '^(\\s*([0-9a-zA-Z\\+/\u003D]){4}\\s*)+$',
           type: 'string',
         },
         _fixedBase64Binary: {
@@ -5188,7 +5188,7 @@ export const input = {
         patternBase64Binary: {
           description:
             'Specifies a value that the value in the instance SHALL follow - that is, any value in the pattern must be found in the instance. Other additional values may be found too. This is effectively constraint by example.  \n\nWhen pattern[x] is used to constrain a primitive, it means that the value provided in the pattern[x] must match the instance value exactly.\n\nWhen pattern[x] is used to constrain an array, it means that each element provided in the pattern[x] array must (recursively) match at least one element from the instance array.\n\nWhen pattern[x] is used to constrain a complex object, it means that each property in the pattern must be present in the complex object, and its value must recursively match -- i.e.,\n\n1. If primitive: it must match exactly the pattern value\n2. If a complex object: it must match (recursively) the pattern value\n3. If an array: it must match (recursively) the pattern value.',
-          pattern: '^(\\s*([0-9a-zA-Z\\+/\u003d]){4}\\s*)+$',
+          pattern: '^(\\s*([0-9a-zA-Z\\+/\u003D]){4}\\s*)+$',
           type: 'string',
         },
         _patternBase64Binary: {
@@ -5778,7 +5778,7 @@ export const input = {
         },
         isSummary: {
           description:
-            'Whether the element should be included if a client requests a search with the parameter _summary\u003dtrue.',
+            'Whether the element should be included if a client requests a search with the parameter _summary\u003Dtrue.',
           $ref: '#/definitions/boolean',
         },
         _isSummary: {
@@ -6067,7 +6067,7 @@ export const input = {
         },
         valueBase64Binary: {
           description: 'The actual value for the element, which must be one of the types allowed for this element.',
-          pattern: '^(\\s*([0-9a-zA-Z\\+/\u003d]){4}\\s*)+$',
+          pattern: '^(\\s*([0-9a-zA-Z\\+/\u003D]){4}\\s*)+$',
           type: 'string',
         },
         _valueBase64Binary: {
@@ -8765,7 +8765,7 @@ export const input = {
         },
         valueBase64Binary: {
           description: 'The  value of the extra detail.',
-          pattern: '^(\\s*([0-9a-zA-Z\\+/\u003d]){4}\\s*)+$',
+          pattern: '^(\\s*([0-9a-zA-Z\\+/\u003D]){4}\\s*)+$',
           type: 'string',
         },
         _valueBase64Binary: {
@@ -9476,7 +9476,7 @@ export const input = {
         },
         total: {
           description:
-            'If a set of search matches, this is the total number of entries of type \u0027match\u0027 across all pages in the search.  It does not include search.mode \u003d \u0027include\u0027 or \u0027outcome\u0027 entries and it does not provide a count of the number of entries in the Bundle.',
+            'If a set of search matches, this is the total number of entries of type \u0027match\u0027 across all pages in the search.  It does not include search.mode \u003D \u0027include\u0027 or \u0027outcome\u0027 entries and it does not provide a count of the number of entries in the Bundle.',
           $ref: '#/definitions/unsignedInt',
         },
         _total: {
@@ -16459,7 +16459,7 @@ export const input = {
     },
     Composition: {
       description:
-        'A set of healthcare-related information that is assembled together into a single logical package that provides a single coherent statement of meaning, establishes its own context and that has clinical attestation with regard to who is making the statement. A Composition defines the structure and narrative content necessary for a document. However, a Composition alone does not constitute a document. Rather, the Composition must be the first entry in a Bundle where Bundle.type\u003ddocument, and any other resources referenced from Composition must be included as subsequent entries in the Bundle (for example Patient, Practitioner, Encounter, etc.).',
+        'A set of healthcare-related information that is assembled together into a single logical package that provides a single coherent statement of meaning, establishes its own context and that has clinical attestation with regard to who is making the statement. A Composition defines the structure and narrative content necessary for a document. However, a Composition alone does not constitute a document. Rather, the Composition must be the first entry in a Bundle where Bundle.type\u003Ddocument, and any other resources referenced from Composition must be included as subsequent entries in the Bundle (for example Patient, Practitioner, Encounter, etc.).',
       properties: {
         resourceType: {
           description: 'This is a Composition resource',
@@ -16629,7 +16629,7 @@ export const input = {
     },
     Composition_Attester: {
       description:
-        'A set of healthcare-related information that is assembled together into a single logical package that provides a single coherent statement of meaning, establishes its own context and that has clinical attestation with regard to who is making the statement. A Composition defines the structure and narrative content necessary for a document. However, a Composition alone does not constitute a document. Rather, the Composition must be the first entry in a Bundle where Bundle.type\u003ddocument, and any other resources referenced from Composition must be included as subsequent entries in the Bundle (for example Patient, Practitioner, Encounter, etc.).',
+        'A set of healthcare-related information that is assembled together into a single logical package that provides a single coherent statement of meaning, establishes its own context and that has clinical attestation with regard to who is making the statement. A Composition defines the structure and narrative content necessary for a document. However, a Composition alone does not constitute a document. Rather, the Composition must be the first entry in a Bundle where Bundle.type\u003Ddocument, and any other resources referenced from Composition must be included as subsequent entries in the Bundle (for example Patient, Practitioner, Encounter, etc.).',
       properties: {
         id: {
           description:
@@ -16677,7 +16677,7 @@ export const input = {
     },
     Composition_RelatesTo: {
       description:
-        'A set of healthcare-related information that is assembled together into a single logical package that provides a single coherent statement of meaning, establishes its own context and that has clinical attestation with regard to who is making the statement. A Composition defines the structure and narrative content necessary for a document. However, a Composition alone does not constitute a document. Rather, the Composition must be the first entry in a Bundle where Bundle.type\u003ddocument, and any other resources referenced from Composition must be included as subsequent entries in the Bundle (for example Patient, Practitioner, Encounter, etc.).',
+        'A set of healthcare-related information that is assembled together into a single logical package that provides a single coherent statement of meaning, establishes its own context and that has clinical attestation with regard to who is making the statement. A Composition defines the structure and narrative content necessary for a document. However, a Composition alone does not constitute a document. Rather, the Composition must be the first entry in a Bundle where Bundle.type\u003Ddocument, and any other resources referenced from Composition must be included as subsequent entries in the Bundle (for example Patient, Practitioner, Encounter, etc.).',
       properties: {
         id: {
           description:
@@ -16721,7 +16721,7 @@ export const input = {
     },
     Composition_Event: {
       description:
-        'A set of healthcare-related information that is assembled together into a single logical package that provides a single coherent statement of meaning, establishes its own context and that has clinical attestation with regard to who is making the statement. A Composition defines the structure and narrative content necessary for a document. However, a Composition alone does not constitute a document. Rather, the Composition must be the first entry in a Bundle where Bundle.type\u003ddocument, and any other resources referenced from Composition must be included as subsequent entries in the Bundle (for example Patient, Practitioner, Encounter, etc.).',
+        'A set of healthcare-related information that is assembled together into a single logical package that provides a single coherent statement of meaning, establishes its own context and that has clinical attestation with regard to who is making the statement. A Composition defines the structure and narrative content necessary for a document. However, a Composition alone does not constitute a document. Rather, the Composition must be the first entry in a Bundle where Bundle.type\u003Ddocument, and any other resources referenced from Composition must be included as subsequent entries in the Bundle (for example Patient, Practitioner, Encounter, etc.).',
       properties: {
         id: {
           description:
@@ -16770,7 +16770,7 @@ export const input = {
     },
     Composition_Section: {
       description:
-        'A set of healthcare-related information that is assembled together into a single logical package that provides a single coherent statement of meaning, establishes its own context and that has clinical attestation with regard to who is making the statement. A Composition defines the structure and narrative content necessary for a document. However, a Composition alone does not constitute a document. Rather, the Composition must be the first entry in a Bundle where Bundle.type\u003ddocument, and any other resources referenced from Composition must be included as subsequent entries in the Bundle (for example Patient, Practitioner, Encounter, etc.).',
+        'A set of healthcare-related information that is assembled together into a single logical package that provides a single coherent statement of meaning, establishes its own context and that has clinical attestation with regard to who is making the statement. A Composition defines the structure and narrative content necessary for a document. However, a Composition alone does not constitute a document. Rather, the Composition must be the first entry in a Bundle where Bundle.type\u003Ddocument, and any other resources referenced from Composition must be included as subsequent entries in the Bundle (for example Patient, Practitioner, Encounter, etc.).',
       properties: {
         id: {
           description:
@@ -17163,7 +17163,7 @@ export const input = {
         },
         unmapped: {
           description:
-            'What to do when there is no mapping for the source concept. "Unmapped" does not include codes that are unmatched, and the unmapped element is ignored in a code is specified to have equivalence \u003d unmatched.',
+            'What to do when there is no mapping for the source concept. "Unmapped" does not include codes that are unmatched, and the unmapped element is ignored in a code is specified to have equivalence \u003D unmatched.',
           $ref: '#/definitions/ConceptMap_Unmapped',
         },
       },
@@ -17407,7 +17407,7 @@ export const input = {
         },
         code: {
           description:
-            'The fixed code to use when the mode \u003d \u0027fixed\u0027  - all unmapped codes are mapped to a single fixed code.',
+            'The fixed code to use when the mode \u003D \u0027fixed\u0027  - all unmapped codes are mapped to a single fixed code.',
           $ref: '#/definitions/code',
         },
         _code: {
@@ -19272,7 +19272,7 @@ export const input = {
         },
         net: {
           description:
-            'Expresses the product of the Contract Valued Item unitQuantity and the unitPriceAmt. For example, the formula: unit Quantity * unit Price (Cost per Point) * factor Number  * points \u003d net Amount. Quantity, factor and points are assumed to be 1 if not supplied.',
+            'Expresses the product of the Contract Valued Item unitQuantity and the unitPriceAmt. For example, the formula: unit Quantity * unit Price (Cost per Point) * factor Number  * points \u003D net Amount. Quantity, factor and points are assumed to be 1 if not supplied.',
           $ref: '#/definitions/Money',
         },
         payment: {
@@ -19919,7 +19919,7 @@ export const input = {
         },
         subrogation: {
           description:
-            'When \u0027subrogation\u003dtrue\u0027 this insurance instance has been included not for adjudication but to provide insurers with the details to recover costs.',
+            'When \u0027subrogation\u003Dtrue\u0027 this insurance instance has been included not for adjudication but to provide insurers with the details to recover costs.',
           $ref: '#/definitions/boolean',
         },
         _subrogation: {
@@ -38328,7 +38328,7 @@ export const input = {
         },
         valueBase64Binary: {
           description: 'Description of the characteristic.',
-          pattern: '^(\\s*([0-9a-zA-Z\\+/\u003d]){4}\\s*)+$',
+          pattern: '^(\\s*([0-9a-zA-Z\\+/\u003D]){4}\\s*)+$',
           type: 'string',
         },
         _valueBase64Binary: {
@@ -44080,12 +44080,12 @@ export const input = {
         },
         low: {
           description:
-            'The value of the low bound of the reference range.  The low bound of the reference range endpoint is inclusive of the value (e.g.  reference range is \u003e\u003d5 - \u003c\u003d9). If the low bound is omitted,  it is assumed to be meaningless (e.g. reference range is \u003c\u003d2.3).',
+            'The value of the low bound of the reference range.  The low bound of the reference range endpoint is inclusive of the value (e.g.  reference range is \u003E\u003D5 - \u003C\u003D9). If the low bound is omitted,  it is assumed to be meaningless (e.g. reference range is \u003C\u003D2.3).',
           $ref: '#/definitions/Quantity',
         },
         high: {
           description:
-            'The value of the high bound of the reference range.  The high bound of the reference range endpoint is inclusive of the value (e.g.  reference range is \u003e\u003d5 - \u003c\u003d9). If the high bound is omitted,  it is assumed to be meaningless (e.g. reference range is \u003e\u003d 2.3).',
+            'The value of the high bound of the reference range.  The high bound of the reference range endpoint is inclusive of the value (e.g.  reference range is \u003E\u003D5 - \u003C\u003D9). If the high bound is omitted,  it is assumed to be meaningless (e.g. reference range is \u003E\u003D 2.3).',
           $ref: '#/definitions/Quantity',
         },
         type: {
@@ -45691,7 +45691,7 @@ export const input = {
         },
         valueBase64Binary: {
           description: 'If the parameter is a data type.',
-          pattern: '^(\\s*([0-9a-zA-Z\\+/\u003d]){4}\\s*)+$',
+          pattern: '^(\\s*([0-9a-zA-Z\\+/\u003D]){4}\\s*)+$',
           type: 'string',
         },
         _valueBase64Binary: {
@@ -49375,7 +49375,7 @@ export const input = {
         },
         operator: {
           description: 'Specifies the criteria by which the question is enabled.',
-          enum: ['exists', '\u003d', '!\u003d', '\u003e', '\u003c', '\u003e\u003d', '\u003c\u003d'],
+          enum: ['exists', '\u003D', '!\u003D', '\u003E', '\u003C', '\u003E\u003D', '\u003C\u003D'],
         },
         _operator: {
           description: 'Extensions for operator',
@@ -52208,7 +52208,7 @@ export const input = {
         },
         relativeRisk: {
           description:
-            'Indicates the risk for this particular subject (with their specific characteristics) divided by the risk of the population in general.  (Numbers greater than 1 \u003d higher risk than the population, numbers less than 1 \u003d lower risk.).',
+            'Indicates the risk for this particular subject (with their specific characteristics) divided by the risk of the population in general.  (Numbers greater than 1 \u003D higher risk than the population, numbers less than 1 \u003D lower risk.).',
           $ref: '#/definitions/decimal',
         },
         _relativeRisk: {
@@ -55506,7 +55506,7 @@ export const input = {
         },
         defaultValueBase64Binary: {
           description: 'A value to use if there is no existing value in the source object.',
-          pattern: '^(\\s*([0-9a-zA-Z\\+/\u003d]){4}\\s*)+$',
+          pattern: '^(\\s*([0-9a-zA-Z\\+/\u003D]){4}\\s*)+$',
           type: 'string',
         },
         _defaultValueBase64Binary: {
@@ -59427,7 +59427,7 @@ export const input = {
         },
         basedOn: {
           description:
-            'BasedOn refers to a higher-level authorization that triggered the creation of the task.  It references a "request" resource such as a ServiceRequest, MedicationRequest, ServiceRequest, CarePlan, etc. which is distinct from the "request" resource the task is seeking to fulfill.  This latter resource is referenced by FocusOn.  For example, based on a ServiceRequest (\u003d BasedOn), a task is created to fulfill a procedureRequest ( \u003d FocusOn ) to collect a specimen from a patient.',
+            'BasedOn refers to a higher-level authorization that triggered the creation of the task.  It references a "request" resource such as a ServiceRequest, MedicationRequest, ServiceRequest, CarePlan, etc. which is distinct from the "request" resource the task is seeking to fulfill.  This latter resource is referenced by FocusOn.  For example, based on a ServiceRequest (\u003D BasedOn), a task is created to fulfill a procedureRequest ( \u003D FocusOn ) to collect a specimen from a patient.',
           items: {
             $ref: '#/definitions/Reference',
           },
@@ -59699,7 +59699,7 @@ export const input = {
         },
         valueBase64Binary: {
           description: 'The value of the input parameter as a basic type.',
-          pattern: '^(\\s*([0-9a-zA-Z\\+/\u003d]){4}\\s*)+$',
+          pattern: '^(\\s*([0-9a-zA-Z\\+/\u003D]){4}\\s*)+$',
           type: 'string',
         },
         _valueBase64Binary: {
@@ -60029,7 +60029,7 @@ export const input = {
         },
         valueBase64Binary: {
           description: 'The value of the Output parameter as a basic type.',
-          pattern: '^(\\s*([0-9a-zA-Z\\+/\u003d]){4}\\s*)+$',
+          pattern: '^(\\s*([0-9a-zA-Z\\+/\u003D]){4}\\s*)+$',
           type: 'string',
         },
         _valueBase64Binary: {
@@ -63180,7 +63180,7 @@ export const input = {
         },
         inactive: {
           description:
-            'Whether inactive codes - codes that are not approved for current use - are in the value set. If inactive \u003d true, inactive codes are to be included in the expansion, if inactive \u003d false, the inactive codes will not be included in the expansion. If absent, the behavior is determined by the implementation, or by the applicable $expand parameters (but generally, inactive codes would be expected to be included).',
+            'Whether inactive codes - codes that are not approved for current use - are in the value set. If inactive \u003D true, inactive codes are to be included in the expansion, if inactive \u003D false, the inactive codes will not be included in the expansion. If absent, the behavior is determined by the implementation, or by the applicable $expand parameters (but generally, inactive codes would be expected to be included).',
           $ref: '#/definitions/boolean',
         },
         _inactive: {
@@ -63410,7 +63410,7 @@ export const input = {
         },
         op: {
           description: 'The kind of operation to perform as a part of the filter criteria.',
-          enum: ['\u003d', 'is-a', 'descendent-of', 'is-not-a', 'regex', 'in', 'not-in', 'generalizes', 'exists'],
+          enum: ['\u003D', 'is-a', 'descendent-of', 'is-not-a', 'regex', 'in', 'not-in', 'generalizes', 'exists'],
         },
         _op: {
           description: 'Extensions for op',

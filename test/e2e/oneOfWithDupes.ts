@@ -30,30 +30,30 @@ export const input = {
   },
   properties: {
     a: {
-      oneOf: [{$ref: '#/definitions/a'}],
+      oneOf: [{ $ref: '#/definitions/a' }],
     },
     b: {
-      oneOf: [{$ref: '#/definitions/a'}, {$ref: '#/definitions/b'}],
+      oneOf: [{ $ref: '#/definitions/a' }, { $ref: '#/definitions/b' }],
     },
     c: {
-      oneOf: [{$ref: '#/definitions/c'}, {$ref: '#/definitions/d'}],
+      oneOf: [{ $ref: '#/definitions/c' }, { $ref: '#/definitions/d' }],
     },
     d: {
-      oneOf: [{$ref: '#/definitions/c'}, {$ref: '#/definitions/c'}, {$ref: '#/definitions/d'}],
+      oneOf: [{ $ref: '#/definitions/c' }, { $ref: '#/definitions/c' }, { $ref: '#/definitions/d' }],
     },
     e: {
-      oneOf: [{$ref: '#/definitions/d'}, {$ref: '#/definitions/d'}],
+      oneOf: [{ $ref: '#/definitions/d' }, { $ref: '#/definitions/d' }],
     },
     f: {
       oneOf: [
-        {$ref: '#/definitions/a'},
-        {$ref: '#/definitions/b'},
-        {$ref: '#/definitions/c'},
-        {$ref: '#/definitions/d'},
-        {$ref: '#/definitions/a'},
-        {$ref: '#/definitions/b'},
-        {$ref: '#/definitions/c'},
-        {$ref: '#/definitions/d'},
+        { $ref: '#/definitions/a' },
+        { $ref: '#/definitions/b' },
+        { $ref: '#/definitions/c' },
+        { $ref: '#/definitions/d' },
+        { $ref: '#/definitions/a' },
+        { $ref: '#/definitions/b' },
+        { $ref: '#/definitions/c' },
+        { $ref: '#/definitions/d' },
       ],
     },
   },

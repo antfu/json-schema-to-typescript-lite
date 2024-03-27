@@ -6,7 +6,7 @@ export const input = {
     data: {
       type: 'array',
       title: 'Array Items',
-      items: {$ref: '#/definitions/item'},
+      items: { $ref: '#/definitions/item' },
     },
   },
   definitions: {

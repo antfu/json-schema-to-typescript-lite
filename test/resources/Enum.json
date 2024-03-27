@@ -1,8 +1,8 @@
 {
-    "type": "object",
-    "properties": {
-        "fstype": {
-            "enum": [ "ext3", "ext4", "btrfs" ]
-        }
+  "type": "object",
+  "properties": {
+    "fstype": {
+      "enum": ["ext3", "ext4", "btrfs"]
     }
+  }
 }

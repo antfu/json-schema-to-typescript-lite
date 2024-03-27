@@ -1,4 +1,4 @@
-export let exclude = true
+export const exclude = true
 
 export const input = {
   title: 'DeterministicOrdering',
@@ -22,12 +22,12 @@ export const input = {
     host: {
       type: 'string',
       pattern: '^[^{}/ :\\\\]+(?::\\d+)?$',
-      description: "The host (name or ip) of the API. Example: 'swagger.io'",
+      description: 'The host (name or ip) of the API. Example: \'swagger.io\'',
     },
     basePath: {
       type: 'string',
       pattern: '^/',
-      description: "The base path to the API. Example: '/api'.",
+      description: 'The base path to the API. Example: \'/api\'.',
     },
     schemes: {
       $ref: '#/definitions/schemesList',
@@ -147,7 +147,7 @@ export const input = {
       properties: {
         name: {
           type: 'string',
-          description: "The name of the license type. It's encouraged to use an OSI compatible license.",
+          description: 'The name of the license type. It\'s encouraged to use an OSI compatible license.',
         },
         url: {
           type: 'string',
@@ -163,7 +163,7 @@ export const input = {
     },
     paths: {
       type: 'object',
-      description: "Relative paths to the individual endpoints. They must be relative to the 'basePath'.",
+      description: 'Relative paths to the individual endpoints. They must be relative to the \'basePath\'.',
       patternProperties: {
         '^x-': {
           $ref: '#/definitions/vendorExtension',
@@ -329,7 +329,7 @@ export const input = {
     },
     responses: {
       type: 'object',
-      description: "Response objects names can either be any valid HTTP status code or 'default'.",
+      description: 'Response objects names can either be any valid HTTP status code or \'default\'.',
       minProperties: 1,
       additionalProperties: false,
       patternProperties: {

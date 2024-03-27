@@ -21,7 +21,7 @@ export const input = {
       type: ['array'],
     },
     moo: {
-      items: [{type: 'integer'}, {type: 'string'}],
+      items: [{ type: 'integer' }, { type: 'string' }],
     },
   },
 }

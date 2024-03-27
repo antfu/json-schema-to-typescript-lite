@@ -1,4 +1,4 @@
-export let exclude = true
+export const exclude = true
 
 export const input = {
   additionalProperties: true,

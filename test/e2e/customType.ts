@@ -11,7 +11,7 @@ export const input = {
       instanceOf: 'Function',
       tsType: '(a: number, b: number) => number',
     },
-    foobar: {$ref: '#/definitions/foobar'},
+    foobar: { $ref: '#/definitions/foobar' },
   },
   definitions: {
     foobar: {

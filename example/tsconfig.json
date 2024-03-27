@@ -1,20 +1,20 @@
 {
   "compilerOptions": {
-    "declaration": false,
+    "target": "es2016",
     "lib": [
       "es2015"
     ],
     "module": "commonjs",
     "moduleResolution": "node",
+    "strictNullChecks": true,
     "noFallthroughCasesInSwitch": true,
     "noImplicitAny": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
+    "declaration": false,
     "outDir": ".",
     "preserveConstEnums": true,
-    "sourceMap": true,
-    "strictNullChecks": true,
-    "target": "es2016"
+    "sourceMap": true
   },
   "files": [
     "./index.ts"

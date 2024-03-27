@@ -25,13 +25,13 @@ export const input = {
     A: {
       type: 'object',
       properties: {
-        a: {type: 'string'},
+        a: { type: 'string' },
       },
     },
     B: {
       type: 'object',
       properties: {
-        b: {type: 'string'},
+        b: { type: 'string' },
       },
     },
   },

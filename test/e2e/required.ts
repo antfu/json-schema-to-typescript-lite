@@ -3,17 +3,17 @@ export const input = {
   definitions: {
     location: {
       properties: {
-        city: {type: 'string'},
-        postalCode: {type: 'number'},
+        city: { type: 'string' },
+        postalCode: { type: 'number' },
       },
     },
   },
   properties: {
     location: {
-      allOf: [{$ref: '#/definitions/location'}, {required: ['postalCode']}],
+      allOf: [{ $ref: '#/definitions/location' }, { required: ['postalCode'] }],
     },
-    name: {type: 'string'},
-    website: {type: 'string'},
+    name: { type: 'string' },
+    website: { type: 'string' },
   },
   required: ['name', 'location'],
   type: 'object',

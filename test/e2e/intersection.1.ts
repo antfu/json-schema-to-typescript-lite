@@ -5,13 +5,13 @@ export const input = {
     a: {
       additionalProperties: false,
       id: 'a',
-      properties: {a: {type: 'string'}},
+      properties: { a: { type: 'string' } },
       required: ['a'],
     },
     b: {
       additionalProperties: false,
       id: 'b',
-      properties: {b: {type: 'string'}},
+      properties: { b: { type: 'string' } },
       required: ['b'],
     },
   },
@@ -19,13 +19,13 @@ export const input = {
     {
       additionalProperties: false,
       id: 'c',
-      properties: {c: {type: 'string'}},
+      properties: { c: { type: 'string' } },
       required: ['c'],
     },
     {
       additionalProperties: false,
       id: 'd',
-      properties: {d: {type: 'string'}},
+      properties: { d: { type: 'string' } },
       required: ['d'],
     },
   ],

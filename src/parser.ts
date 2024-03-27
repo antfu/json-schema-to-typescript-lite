@@ -1,30 +1,34 @@
-import {JSONSchema4Type, JSONSchema4TypeName} from 'json-schema'
-import {findKey, includes, isPlainObject, map, memoize, omit} from 'lodash'
-import {format} from 'util'
-import {Options} from './'
-import {typesOfSchema} from './typesOfSchema'
-import {
+import { format } from 'node:util'
+import { findKey, includes, isPlainObject, map, memoize, omit } from 'lodash'
+import type { JSONSchema4Type, JSONSchema4TypeName } from 'json-schema'
+import { typesOfSchema } from './typesOfSchema'
+import type {
   AST,
-  T_ANY,
-  T_ANY_ADDITIONAL_PROPERTIES,
   TInterface,
   TInterfaceParam,
+  TIntersection,
   TNamedInterface,
   TTuple,
+} from './types/AST'
+import {
+  T_ANY,
+  T_ANY_ADDITIONAL_PROPERTIES,
   T_UNKNOWN,
   T_UNKNOWN_ADDITIONAL_PROPERTIES,
-  TIntersection,
 } from './types/AST'
+import type {
+  JSONSchemaWithDefinitions,
+  JSONSchema as LinkedJSONSchema,
+  SchemaSchema,
+  SchemaType,
+} from './types/JSONSchema'
 import {
   getRootSchema,
   isBoolean,
   isPrimitive,
-  JSONSchema as LinkedJSONSchema,
-  JSONSchemaWithDefinitions,
-  SchemaSchema,
-  SchemaType,
 } from './types/JSONSchema'
-import {generateName, log, maybeStripDefault, maybeStripNameHints} from './utils'
+import { generateName, log, maybeStripDefault, maybeStripNameHints } from './utils'
+import type { Options } from './'
 
 export type Processed = Map<LinkedJSONSchema, Map<SchemaType, AST>>
 
@@ -38,9 +42,8 @@ export function parse(
   usedNames = new Set<string>(),
 ): AST {
   if (isPrimitive(schema)) {
-    if (isBoolean(schema)) {
+    if (isBoolean(schema))
       return parseBooleanSchema(schema, keyName, options)
-    }
 
     return parseLiteral(schema, keyName)
   }
@@ -93,9 +96,8 @@ function parseAsTypeWithCache(
     processed.set(schema, cachedTypeMap)
   }
   const cachedAST = cachedTypeMap.get(type)
-  if (cachedAST) {
+  if (cachedAST)
     return cachedAST
-  }
 
   // Cache processed ASTs before they are actually computed, then update
   // them in place using set(). This is to avoid cycles.
@@ -241,7 +243,7 @@ function parseNonLiteral(
         type: 'UNION',
       }
     case 'REFERENCE':
-      throw Error(format('Refs should have been resolved by the resolver!', schema))
+      throw new Error(format('Refs should have been resolved by the resolver!', schema))
     case 'STRING':
       return {
         comment: schema.description,
@@ -265,13 +267,14 @@ function parseNonLiteral(
           params: schema.items.map(_ => parse(_, options, undefined, processed, usedNames)),
           type: 'TUPLE',
         }
-        if (schema.additionalItems === true) {
+        if (schema.additionalItems === true)
           arrayType.spreadParam = options.unknownAny ? T_UNKNOWN : T_ANY
-        } else if (schema.additionalItems) {
+        else if (schema.additionalItems)
           arrayType.spreadParam = parse(schema.additionalItems, options, undefined, processed, usedNames)
-        }
+
         return arrayType
-      } else {
+      }
+      else {
         return {
           comment: schema.description,
           deprecated: schema.deprecated,
@@ -287,8 +290,8 @@ function parseNonLiteral(
         deprecated: schema.deprecated,
         keyName,
         standaloneName: standaloneName(schema, keyNameFromDefinition, usedNames, options),
-        params: (schema.type as JSONSchema4TypeName[]).map(type => {
-          const member: LinkedJSONSchema = {...omit(schema, '$id', 'description', 'title'), type}
+        params: (schema.type as JSONSchema4TypeName[]).map((type) => {
+          const member: LinkedJSONSchema = { ...omit(schema, '$id', 'description', 'title'), type }
           return parse(maybeStripDefault(member as any), options, undefined, processed, usedNames)
         }),
         type: 'UNION',
@@ -304,7 +307,7 @@ function parseNonLiteral(
       }
     case 'UNNAMED_SCHEMA':
       return newInterface(schema as SchemaSchema, options, processed, usedNames, keyName, keyNameFromDefinition)
-    case 'UNTYPED_ARRAY':
+    case 'UNTYPED_ARRAY': {
       // normalised to not be undefined
       const minItems = schema.minItems!
       const maxItems = typeof schema.maxItems === 'number' ? schema.maxItems : -1
@@ -333,6 +336,7 @@ function parseNonLiteral(
         standaloneName: standaloneName(schema, keyNameFromDefinition, usedNames, options),
         type: 'ARRAY',
       }
+    }
   }
 }
 
@@ -345,13 +349,12 @@ function standaloneName(
   usedNames: UsedNames,
   options: Options,
 ): string | undefined {
-  if (options.customName) {
+  if (options.customName)
     return options.customName(schema, keyNameFromDefinition)
-  }
+
   const name = schema.title || schema.$id || keyNameFromDefinition
-  if (name) {
+  if (name)
     return generateName(name, usedNames)
-  }
 }
 
 function newInterface(
@@ -383,9 +386,9 @@ function parseSuperTypes(
   // Type assertion needed because of dereferencing step
   // TODO: Type it upstream
   const superTypes = schema.extends as SchemaSchema[] | undefined
-  if (!superTypes) {
+  if (!superTypes)
     return []
-  }
+
   return superTypes.map(_ => parse(_, options, undefined, processed, usedNames) as TNamedInterface)
 }
 
@@ -453,9 +456,9 @@ via the \`definition\` "${key}".`
   switch (schema.additionalProperties) {
     case undefined:
     case true:
-      if (singlePatternProperty) {
+      if (singlePatternProperty)
         return asts
-      }
+
       return asts.concat({
         ast: options.unknownAny ? T_UNKNOWN_ADDITIONAL_PROPERTIES : T_ANY_ADDITIONAL_PROPERTIES,
         isPatternProperty: false,
@@ -480,16 +483,16 @@ via the \`definition\` "${key}".`
   }
 }
 
-type Definitions = {[k: string]: LinkedJSONSchema}
+interface Definitions { [k: string]: LinkedJSONSchema }
 
 function getDefinitions(
   schema: LinkedJSONSchema,
   isSchema = true,
   processed = new Set<LinkedJSONSchema>(),
 ): Definitions {
-  if (processed.has(schema)) {
+  if (processed.has(schema))
     return {}
-  }
+
   processed.add(schema)
   if (Array.isArray(schema)) {
     return schema.reduce(

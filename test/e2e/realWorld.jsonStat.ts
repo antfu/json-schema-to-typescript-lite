@@ -21,8 +21,8 @@ export const input = {
     },
     updated: {
       oneOf: [
-        {type: 'string', format: 'date-time'},
-        {type: 'string', pattern: '^((19|20)\\d\\d)\\-(0?[1-9]|1[012])\\-(0?[1-9]|[12][0-9]|3[01])$'},
+        { type: 'string', format: 'date-time' },
+        { type: 'string', pattern: '^((19|20)\\d\\d)\\-(0?[1-9]|1[012])\\-(0?[1-9]|[12][0-9]|3[01])$' },
       ],
     },
     href: {
@@ -41,7 +41,7 @@ export const input = {
     error: {
       type: 'array',
     },
-    note: {$ref: '#/definitions/strarray'},
+    note: { $ref: '#/definitions/strarray' },
 
     category: {
       type: 'object',
@@ -95,7 +95,7 @@ export const input = {
           type: 'object',
           additionalProperties: {
             type: 'array',
-            items: [{type: 'number'}, {type: 'number'}],
+            items: [{ type: 'number' }, { type: 'number' }],
             additionalItems: false,
           },
         },
@@ -122,18 +122,18 @@ export const input = {
                 type: {
                   type: 'string',
                 },
-                class: {type: 'string', enum: ['dataset', 'collection', 'dimension']},
-                href: {$ref: '#/definitions/href'},
-                label: {$ref: '#/definitions/label'},
-                note: {$ref: '#/definitions/note'},
-                link: {$ref: '#/definitions/link'},
-                updated: {$ref: '#/definitions/updated'},
-                source: {$ref: '#/definitions/source'},
-                extension: {$ref: '#/definitions/extension'},
+                class: { type: 'string', enum: ['dataset', 'collection', 'dimension'] },
+                href: { $ref: '#/definitions/href' },
+                label: { $ref: '#/definitions/label' },
+                note: { $ref: '#/definitions/note' },
+                link: { $ref: '#/definitions/link' },
+                updated: { $ref: '#/definitions/updated' },
+                source: { $ref: '#/definitions/source' },
+                extension: { $ref: '#/definitions/extension' },
 
-                category: {$ref: '#/definitions/category'},
+                category: { $ref: '#/definitions/category' },
 
-                id: {$ref: '#/definitions/strarray'},
+                id: { $ref: '#/definitions/strarray' },
 
                 size: {
                   type: 'array',
@@ -145,9 +145,9 @@ export const input = {
                 role: {
                   type: 'object',
                   properties: {
-                    time: {$ref: '#/definitions/strarray'},
-                    geo: {$ref: '#/definitions/strarray'},
-                    metric: {$ref: '#/definitions/strarray'},
+                    time: { $ref: '#/definitions/strarray' },
+                    geo: { $ref: '#/definitions/strarray' },
+                    metric: { $ref: '#/definitions/strarray' },
                   },
                   additionalProperties: false,
                 },
@@ -157,13 +157,13 @@ export const input = {
                   additionalProperties: {
                     type: 'object',
                     properties: {
-                      href: {$ref: '#/definitions/href'},
-                      label: {$ref: '#/definitions/label'},
-                      note: {$ref: '#/definitions/note'},
-                      link: {$ref: '#/definitions/link'},
-                      extension: {$ref: '#/definitions/extension'},
+                      href: { $ref: '#/definitions/href' },
+                      label: { $ref: '#/definitions/label' },
+                      note: { $ref: '#/definitions/note' },
+                      link: { $ref: '#/definitions/link' },
+                      extension: { $ref: '#/definitions/extension' },
 
-                      category: {$ref: '#/definitions/category'},
+                      category: { $ref: '#/definitions/category' },
                     },
                     additionalProperties: false,
                     required: ['category'],
@@ -175,13 +175,13 @@ export const input = {
                     {
                       type: 'array',
                       items: {
-                        anyOf: [{type: 'number'}, {type: 'null'}, {type: 'string'}],
+                        anyOf: [{ type: 'number' }, { type: 'null' }, { type: 'string' }],
                       },
                     },
                     {
                       type: 'object',
                       additionalProperties: {
-                        anyOf: [{type: 'number'}, {type: 'null'}, {type: 'string'}],
+                        anyOf: [{ type: 'number' }, { type: 'null' }, { type: 'string' }],
                       },
                     },
                   ],
@@ -219,19 +219,19 @@ export const input = {
     {
       type: 'object',
       properties: {
-        class: {type: 'string', enum: ['dataset']},
+        class: { type: 'string', enum: ['dataset'] },
 
-        version: {$ref: '#/definitions/version'},
-        href: {$ref: '#/definitions/href'},
-        label: {$ref: '#/definitions/label'},
-        note: {$ref: '#/definitions/note'},
-        link: {$ref: '#/definitions/link'},
-        updated: {$ref: '#/definitions/updated'},
-        source: {$ref: '#/definitions/source'},
-        error: {$ref: '#/definitions/error'},
-        extension: {$ref: '#/definitions/extension'},
+        version: { $ref: '#/definitions/version' },
+        href: { $ref: '#/definitions/href' },
+        label: { $ref: '#/definitions/label' },
+        note: { $ref: '#/definitions/note' },
+        link: { $ref: '#/definitions/link' },
+        updated: { $ref: '#/definitions/updated' },
+        source: { $ref: '#/definitions/source' },
+        error: { $ref: '#/definitions/error' },
+        extension: { $ref: '#/definitions/extension' },
 
-        id: {$ref: '#/definitions/strarray'},
+        id: { $ref: '#/definitions/strarray' },
 
         size: {
           type: 'array',
@@ -243,9 +243,9 @@ export const input = {
         role: {
           type: 'object',
           properties: {
-            time: {$ref: '#/definitions/strarray'},
-            geo: {$ref: '#/definitions/strarray'},
-            metric: {$ref: '#/definitions/strarray'},
+            time: { $ref: '#/definitions/strarray' },
+            geo: { $ref: '#/definitions/strarray' },
+            metric: { $ref: '#/definitions/strarray' },
           },
           additionalProperties: false,
         },
@@ -255,13 +255,13 @@ export const input = {
           additionalProperties: {
             type: 'object',
             properties: {
-              href: {$ref: '#/definitions/href'},
-              label: {$ref: '#/definitions/label'},
-              note: {$ref: '#/definitions/note'},
-              link: {$ref: '#/definitions/link'},
-              extension: {$ref: '#/definitions/extension'},
+              href: { $ref: '#/definitions/href' },
+              label: { $ref: '#/definitions/label' },
+              note: { $ref: '#/definitions/note' },
+              link: { $ref: '#/definitions/link' },
+              extension: { $ref: '#/definitions/extension' },
 
-              category: {$ref: '#/definitions/category'},
+              category: { $ref: '#/definitions/category' },
             },
             additionalProperties: false,
             required: ['category'],
@@ -273,13 +273,13 @@ export const input = {
             {
               type: 'array',
               items: {
-                anyOf: [{type: 'number'}, {type: 'null'}, {type: 'string'}],
+                anyOf: [{ type: 'number' }, { type: 'null' }, { type: 'string' }],
               },
             },
             {
               type: 'object',
               additionalProperties: {
-                anyOf: [{type: 'number'}, {type: 'null'}, {type: 'string'}],
+                anyOf: [{ type: 'number' }, { type: 'null' }, { type: 'string' }],
               },
             },
           ],
@@ -311,19 +311,19 @@ export const input = {
     {
       type: 'object',
       properties: {
-        class: {type: 'string', enum: ['dimension']},
+        class: { type: 'string', enum: ['dimension'] },
 
-        version: {$ref: '#/definitions/version'},
-        href: {$ref: '#/definitions/href'},
-        label: {$ref: '#/definitions/label'},
-        note: {$ref: '#/definitions/note'},
-        link: {$ref: '#/definitions/link'},
-        updated: {$ref: '#/definitions/updated'},
-        source: {$ref: '#/definitions/source'},
-        error: {$ref: '#/definitions/error'},
-        extension: {$ref: '#/definitions/extension'},
+        version: { $ref: '#/definitions/version' },
+        href: { $ref: '#/definitions/href' },
+        label: { $ref: '#/definitions/label' },
+        note: { $ref: '#/definitions/note' },
+        link: { $ref: '#/definitions/link' },
+        updated: { $ref: '#/definitions/updated' },
+        source: { $ref: '#/definitions/source' },
+        error: { $ref: '#/definitions/error' },
+        extension: { $ref: '#/definitions/extension' },
 
-        category: {$ref: '#/definitions/category'},
+        category: { $ref: '#/definitions/category' },
       },
       additionalProperties: false,
       required: ['version', 'class', 'category'],
@@ -331,12 +331,12 @@ export const input = {
     {
       type: 'object',
       properties: {
-        class: {type: 'string', enum: ['collection']},
+        class: { type: 'string', enum: ['collection'] },
 
-        version: {$ref: '#/definitions/version'},
-        href: {$ref: '#/definitions/href'},
-        label: {$ref: '#/definitions/label'},
-        note: {$ref: '#/definitions/note'},
+        version: { $ref: '#/definitions/version' },
+        href: { $ref: '#/definitions/href' },
+        label: { $ref: '#/definitions/label' },
+        note: { $ref: '#/definitions/note' },
         link: {
           type: 'object',
           properties: {
@@ -348,18 +348,18 @@ export const input = {
                   type: {
                     type: 'string',
                   },
-                  class: {type: 'string', enum: ['dataset', 'collection', 'dimension']},
-                  href: {$ref: '#/definitions/href'},
-                  label: {$ref: '#/definitions/label'},
-                  note: {$ref: '#/definitions/note'},
-                  link: {$ref: '#/definitions/link'},
-                  updated: {$ref: '#/definitions/updated'},
-                  source: {$ref: '#/definitions/source'},
-                  extension: {$ref: '#/definitions/extension'},
+                  class: { type: 'string', enum: ['dataset', 'collection', 'dimension'] },
+                  href: { $ref: '#/definitions/href' },
+                  label: { $ref: '#/definitions/label' },
+                  note: { $ref: '#/definitions/note' },
+                  link: { $ref: '#/definitions/link' },
+                  updated: { $ref: '#/definitions/updated' },
+                  source: { $ref: '#/definitions/source' },
+                  extension: { $ref: '#/definitions/extension' },
 
-                  category: {$ref: '#/definitions/category'},
+                  category: { $ref: '#/definitions/category' },
 
-                  id: {$ref: '#/definitions/strarray'},
+                  id: { $ref: '#/definitions/strarray' },
 
                   size: {
                     type: 'array',
@@ -371,9 +371,9 @@ export const input = {
                   role: {
                     type: 'object',
                     properties: {
-                      time: {$ref: '#/definitions/strarray'},
-                      geo: {$ref: '#/definitions/strarray'},
-                      metric: {$ref: '#/definitions/strarray'},
+                      time: { $ref: '#/definitions/strarray' },
+                      geo: { $ref: '#/definitions/strarray' },
+                      metric: { $ref: '#/definitions/strarray' },
                     },
                     additionalProperties: false,
                   },
@@ -383,13 +383,13 @@ export const input = {
                     additionalProperties: {
                       type: 'object',
                       properties: {
-                        href: {$ref: '#/definitions/href'},
-                        label: {$ref: '#/definitions/label'},
-                        note: {$ref: '#/definitions/note'},
-                        link: {$ref: '#/definitions/link'},
-                        extension: {$ref: '#/definitions/extension'},
+                        href: { $ref: '#/definitions/href' },
+                        label: { $ref: '#/definitions/label' },
+                        note: { $ref: '#/definitions/note' },
+                        link: { $ref: '#/definitions/link' },
+                        extension: { $ref: '#/definitions/extension' },
 
-                        category: {$ref: '#/definitions/category'},
+                        category: { $ref: '#/definitions/category' },
                       },
                       additionalProperties: false,
                       required: ['category'],
@@ -401,13 +401,13 @@ export const input = {
                       {
                         type: 'array',
                         items: {
-                          anyOf: [{type: 'number'}, {type: 'null'}, {type: 'string'}],
+                          anyOf: [{ type: 'number' }, { type: 'null' }, { type: 'string' }],
                         },
                       },
                       {
                         type: 'object',
                         additionalProperties: {
-                          anyOf: [{type: 'number'}, {type: 'null'}, {type: 'string'}],
+                          anyOf: [{ type: 'number' }, { type: 'null' }, { type: 'string' }],
                         },
                       },
                     ],
@@ -439,10 +439,10 @@ export const input = {
           },
           additionalProperties: false,
         },
-        updated: {$ref: '#/definitions/updated'},
-        source: {$ref: '#/definitions/source'},
-        error: {$ref: '#/definitions/error'},
-        extension: {$ref: '#/definitions/extension'},
+        updated: { $ref: '#/definitions/updated' },
+        source: { $ref: '#/definitions/source' },
+        error: { $ref: '#/definitions/error' },
+        extension: { $ref: '#/definitions/extension' },
       },
       additionalProperties: false,
       required: ['version', 'class', 'link'],

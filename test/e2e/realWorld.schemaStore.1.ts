@@ -38,19 +38,19 @@ export const input = {
     },
     scriptsRestart: {
       description:
-        "Run by the 'npm restart' command. Note: 'npm restart' will run the stop and start scripts if no restart script is provided.",
+        'Run by the \'npm restart\' command. Note: \'npm restart\' will run the stop and start scripts if no restart script is provided.',
       type: 'string',
     },
     scriptsStart: {
-      description: "Run by the 'npm start' command.",
+      description: 'Run by the \'npm start\' command.',
       type: 'string',
     },
     scriptsStop: {
-      description: "Run by the 'npm stop' command.",
+      description: 'Run by the \'npm stop\' command.',
       type: 'string',
     },
     scriptsTest: {
-      description: "Run by the 'npm test' command.",
+      description: 'Run by the \'npm test\' command.',
       type: 'string',
     },
     scriptsUninstallBefore: {
@@ -70,7 +70,7 @@ export const input = {
     packageExportsEntryObject: {
       type: 'object',
       description:
-        "Used to specify conditional exports, note that Conditional exports are unsupported in older environments, so it's recommended to use the fallback array option if support for those environments is a concern.",
+        'Used to specify conditional exports, note that Conditional exports are unsupported in older environments, so it\'s recommended to use the fallback array option if support for those environments is a concern.',
       properties: {
         require: {
           $ref: '#/definitions/packageExportsEntryOrFallback',
@@ -111,7 +111,7 @@ export const input = {
     },
     packageExportsFallback: {
       type: 'array',
-      description: "Used to allow fallbacks in case this environment doesn't support the preceding entries.",
+      description: 'Used to allow fallbacks in case this environment doesn\'t support the preceding entries.',
       items: {
         $ref: '#/definitions/packageExportsEntry',
       },
@@ -147,11 +147,11 @@ export const input = {
       type: 'string',
     },
     description: {
-      description: "This helps people discover your package, as it's listed in 'npm search'.",
+      description: 'This helps people discover your package, as it\'s listed in \'npm search\'.',
       type: 'string',
     },
     keywords: {
-      description: "This helps people discover your package as it's listed in 'npm search'.",
+      description: 'This helps people discover your package as it\'s listed in \'npm search\'.',
       type: 'array',
       items: {
         type: 'string',
@@ -163,12 +163,12 @@ export const input = {
     },
     bugs: {
       description:
-        "The url to your project's issue tracker and / or the email address to which issues should be reported. These are helpful for people who encounter issues with your package.",
+        'The url to your project\'s issue tracker and / or the email address to which issues should be reported. These are helpful for people who encounter issues with your package.',
       type: ['object', 'string'],
       properties: {
         url: {
           type: 'string',
-          description: "The url to your project's issue tracker.",
+          description: 'The url to your project\'s issue tracker.',
           format: 'uri',
         },
         email: {
@@ -181,7 +181,7 @@ export const input = {
     license: {
       type: 'string',
       description:
-        "You should specify a license for your package so that people know how they are permitted to use it, and any restrictions you're placing on it.",
+        'You should specify a license for your package so that people know how they are permitted to use it, and any restrictions you\'re placing on it.',
     },
     licenses: {
       description:
@@ -219,7 +219,7 @@ export const input = {
     },
     files: {
       description:
-        "The 'files' field is an array of files to include in your project. If you name a folder in the array, then it will also include the files inside that folder.",
+        'The \'files\' field is an array of files to include in your project. If you name a folder in the array, then it will also include the files inside that folder.',
       type: 'array',
       items: {
         type: 'string',
@@ -345,7 +345,7 @@ export const input = {
       properties: {
         bin: {
           description:
-            "If you specify a 'bin' directory, then all the files in that folder will be used as the 'bin' hash.",
+            'If you specify a \'bin\' directory, then all the files in that folder will be used as the \'bin\' hash.',
           type: 'string',
         },
         doc: {
@@ -358,11 +358,11 @@ export const input = {
         },
         lib: {
           description:
-            "Tell people where the bulk of your library is. Nothing special is done with the lib folder in any way, but it's useful meta info.",
+            'Tell people where the bulk of your library is. Nothing special is done with the lib folder in any way, but it\'s useful meta info.',
           type: 'string',
         },
         man: {
-          description: "A folder that is full of man pages. Sugar to generate a 'man' array by walking the folder.",
+          description: 'A folder that is full of man pages. Sugar to generate a \'man\' array by walking the folder.',
           type: 'string',
         },
         test: {
@@ -387,7 +387,7 @@ export const input = {
     },
     scripts: {
       description:
-        "The 'scripts' member is an object hash of script commands that are run at various times in the lifecycle of your package. The key is the lifecycle event, and the value is the command to run at that point.",
+        'The \'scripts\' member is an object hash of script commands that are run at various times in the lifecycle of your package. The key is the lifecycle event, and the value is the command to run at that point.',
       type: 'object',
       properties: {
         prepublish: {
@@ -492,7 +492,7 @@ export const input = {
     },
     config: {
       description:
-        "A 'config' hash can be used to set configuration parameters used in package scripts that persist across upgrades.",
+        'A \'config\' hash can be used to set configuration parameters used in package scripts that persist across upgrades.',
       type: 'object',
       additionalProperties: true,
     },
@@ -683,7 +683,7 @@ export const input = {
         },
       ],
     },
-    jspm: {$ref: '#'},
+    jspm: { $ref: '#' },
   },
   anyOf: [
     {

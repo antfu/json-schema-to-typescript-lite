@@ -3,7 +3,7 @@
   "title": "Example Combined Schema",
   "type": "object",
   "oneOf": [
-    {"type": "string"},
-    {"type": "number"}
+    { "type": "string" },
+    { "type": "number" }
   ]
 }

@@ -3,7 +3,7 @@
  */
 export const input = {
   definitions: {
-    mainMenu: {
+    'mainMenu': {
       title: 'Main Menu',
       type: 'object',
       additionalProperties: false,
@@ -681,7 +681,7 @@ export const input = {
       },
       required: [],
     },
-    footer: {
+    'footer': {
       title: 'Footer',
       type: 'object',
       additionalProperties: false,
@@ -891,7 +891,7 @@ export const input = {
       },
       required: [],
     },
-    meta: {
+    'meta': {
       title: 'Meta',
       type: 'object',
       additionalProperties: false,
@@ -1051,7 +1051,7 @@ export const input = {
       },
       required: [],
     },
-    pages: {
+    'pages': {
       title: 'Page',
       type: 'object',
       additionalProperties: false,
@@ -4199,7 +4199,7 @@ export const input = {
       },
       required: ['title'],
     },
-    posts: {
+    'posts': {
       title: 'Post',
       type: 'object',
       additionalProperties: false,
@@ -7316,7 +7316,7 @@ export const input = {
       },
       required: ['title'],
     },
-    housing: {
+    'housing': {
       title: 'Housing',
       type: 'object',
       additionalProperties: false,
@@ -9033,7 +9033,7 @@ export const input = {
       },
       required: ['title'],
     },
-    locations: {
+    'locations': {
       title: 'Location',
       type: 'object',
       additionalProperties: false,
@@ -9181,7 +9181,7 @@ export const input = {
       },
       required: ['name'],
     },
-    subsites: {
+    'subsites': {
       title: 'Subsite',
       type: 'object',
       additionalProperties: false,
@@ -10025,7 +10025,7 @@ export const input = {
       },
       required: ['title', 'home'],
     },
-    alerts: {
+    'alerts': {
       title: 'Alert',
       type: 'object',
       additionalProperties: false,
@@ -10158,7 +10158,7 @@ export const input = {
       },
       required: ['placement', 'subsites', 'content'],
     },
-    search: {
+    'search': {
       title: 'Search Result',
       type: 'object',
       additionalProperties: false,
@@ -10292,7 +10292,7 @@ export const input = {
       },
       required: ['title', 'slug', 'doc'],
     },
-    media: {
+    'media': {
       title: 'Media',
       type: 'object',
       additionalProperties: false,
@@ -10513,7 +10513,7 @@ export const input = {
       },
       required: ['alt'],
     },
-    people: {
+    'people': {
       title: 'Person',
       type: 'object',
       additionalProperties: false,
@@ -10615,7 +10615,7 @@ export const input = {
       },
       required: ['name'],
     },
-    forms: {
+    'forms': {
       title: 'Form',
       type: 'object',
       additionalProperties: false,
@@ -10903,7 +10903,7 @@ export const input = {
       },
       required: ['form'],
     },
-    users: {
+    'users': {
       title: 'User',
       type: 'object',
       additionalProperties: false,

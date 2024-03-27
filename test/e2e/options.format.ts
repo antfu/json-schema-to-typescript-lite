@@ -1,4 +1,4 @@
-import {Options} from '../../src'
+import type { Options } from '../../src'
 
 export const input = {
   title: 'Example Schema',

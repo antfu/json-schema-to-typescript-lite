@@ -1,4 +1,4 @@
-export let input = {
+export const input = {
   id: 'Parent',
   type: 'object',
   additionalProperties: false,

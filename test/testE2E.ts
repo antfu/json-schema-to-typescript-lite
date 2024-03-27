@@ -1,15 +1,16 @@
-import {FileInfo} from '@bcherny/json-schema-ref-parser'
+import { readdirSync } from 'node:fs'
+import { join } from 'node:path'
+import type { FileInfo } from '@bcherny/json-schema-ref-parser'
 import test from 'ava'
-import {readdirSync} from 'fs'
-import {find, merge} from 'lodash'
-import {join} from 'path'
-import {compile, JSONSchema, Options} from '../src'
-import {log, stripExtension} from '../src/utils'
-import {getWithCache} from './http'
+import { find, merge } from 'lodash'
+import type { JSONSchema, Options } from '../src'
+import { compile } from '../src'
+import { log, stripExtension } from '../src/utils'
+import { getWithCache } from './http'
 
-const dir = __dirname + '/e2e'
+const dir = `${__dirname}/e2e`
 
-type TestCase = {
+interface TestCase {
   input: JSONSchema
   error?: true
   exclude?: boolean
@@ -34,17 +35,16 @@ export function run() {
   // exporting `const only=true` will only run that test
   // exporting `const exclude=true` will not run that test
   const only = find(modules, _ => Boolean(_[1].only))
-  if (only) {
+  if (only)
     runOne(only[1], only[0])
-  } else {
+  else
     modules.filter(_ => !_[1].exclude).forEach(_ => runOne(_[1], _[0]))
-  }
 }
 
 const httpWithCacheResolver = {
   order: 1,
   canRead: /^https?:/i,
-  async read({url}: FileInfo) {
+  async read({ url }: FileInfo) {
     return await getWithCache(url)
   },
 }
@@ -52,16 +52,18 @@ const httpWithCacheResolver = {
 function runOne(exports: TestCase, name: string) {
   log('blue', 'Running test', name)
 
-  const options = merge(exports.options, {$refOptions: {resolve: {http: httpWithCacheResolver}}})
+  const options = merge(exports.options, { $refOptions: { resolve: { http: httpWithCacheResolver } } })
 
-  test(name, async t => {
+  test(name, async (t) => {
     if (exports.error) {
       try {
         await compile(exports.input, stripExtension(name), options)
-      } catch (e) {
+      }
+      catch (e) {
         t.true(e instanceof Error)
       }
-    } else {
+    }
+    else {
       t.snapshot(
         await compile(exports.input, stripExtension(name), options),
         `Expected output to match snapshot for e2e test: ${name}`,

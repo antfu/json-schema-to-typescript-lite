@@ -2,8 +2,8 @@
   "title": "A schema",
   "type": "object",
   "properties": {
-    "f": {"type": "string"},
-    "g": {"type": "integer"}
+    "f": { "type": "string" },
+    "g": { "type": "integer" }
   },
   "additionalProperties": false,
   "required": ["f"]

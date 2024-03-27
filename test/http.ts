@@ -1,7 +1,7 @@
-import {existsSync, readFileSync, writeFileSync} from 'fs'
-import {get as httpGet} from 'http'
-import {get as httpsGet} from 'https'
-import {join} from 'path'
+import { existsSync, readFileSync, writeFileSync } from 'node:fs'
+import { get as httpGet } from 'node:http'
+import { get as httpsGet } from 'node:https'
+import { join } from 'node:path'
 
 const CACHE_DIR = 'test/__fixtures__'
 
@@ -9,9 +9,8 @@ const CACHE_DIR = 'test/__fixtures__'
 // TODO: Pull this out into its own NPM module
 export async function getWithCache(url: string): Promise<object> {
   const resultFromFilesystem = getFromFilesystem(url)
-  if (resultFromFilesystem) {
+  if (resultFromFilesystem)
     return resultFromFilesystem
-  }
 
   const resultFromNetwork = await getFromNetwork(url)
   writeToFilesystem(url, resultFromNetwork)
@@ -20,9 +19,9 @@ export async function getWithCache(url: string): Promise<object> {
 
 function getFromFilesystem(url: string): object | undefined {
   const filepath = getFilepath(url)
-  if (!existsSync(filepath)) {
+  if (!existsSync(filepath))
     return
-  }
+
   return JSON.parse(readFileSync(filepath, 'utf8'))
 }
 
@@ -39,27 +38,27 @@ function writeToFilesystem(url: string, data: object): void {
 function getFromNetwork(url: string): Promise<object> {
   const f = url.startsWith('https://') ? httpsGet : httpGet
   return new Promise((resolve, reject) => {
-    f(url, res => {
+    f(url, (res) => {
       const contentType = res.headers['content-type']
-      if (res.statusCode !== 200) {
+      if (res.statusCode !== 200)
         return reject(res)
-      } else if (contentType && !/^application\/json/.test(contentType)) {
+      else if (contentType && !/^application\/json/.test(contentType))
         return reject(new Error('Invalid content-type.\n' + `Expected application/json but received ${contentType}`))
-      }
 
       res.setEncoding('utf8')
       let rawData = ''
-      res.on('data', chunk => {
+      res.on('data', (chunk) => {
         rawData += chunk
       })
       res.on('end', () => {
         try {
           resolve(JSON.parse(rawData))
-        } catch (e) {
+        }
+        catch (e) {
           reject(e)
         }
       })
-    }).on('error', e => {
+    }).on('error', (e) => {
       reject(e)
     })
   })

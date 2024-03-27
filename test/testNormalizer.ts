@@ -1,9 +1,10 @@
+import { readdirSync } from 'node:fs'
+import { join } from 'node:path'
 import test from 'ava'
-import {readdirSync} from 'fs'
-import {join} from 'path'
-import {JSONSchema, Options, DEFAULT_OPTIONS} from '../src'
-import {link} from '../src/linker'
-import {normalize} from '../src/normalizer'
+import type { JSONSchema, Options } from '../src'
+import { DEFAULT_OPTIONS } from '../src'
+import { link } from '../src/linker'
+import { normalize } from '../src/normalizer'
 
 interface JSONTestCase {
   name: string
@@ -12,7 +13,7 @@ interface JSONTestCase {
   options?: Options
 }
 
-const normalizerDir = __dirname + '/../../test/normalizer'
+const normalizerDir = `${__dirname}/../../test/normalizer`
 
 export function run() {
   readdirSync(normalizerDir)
@@ -20,7 +21,7 @@ export function run() {
     .map(_ => join(normalizerDir, _))
     .map(_ => [_, require(_)] as [string, JSONTestCase])
     .forEach(([filename, json]: [string, JSONTestCase]) => {
-      test(json.name, t => {
+      test(json.name, (t) => {
         const normalized = normalize(link(json.in), new WeakMap(), filename, json.options ?? DEFAULT_OPTIONS)
         t.deepEqual(json.out, normalized)
       })

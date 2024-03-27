@@ -1,12 +1,14 @@
-import {deburr, isPlainObject, trim, upperFirst} from 'lodash'
-import {basename, dirname, extname, normalize, sep, posix} from 'path'
-import {JSONSchema, LinkedJSONSchema, Parent} from './types/JSONSchema'
+import { basename, dirname, extname, normalize, posix, sep } from 'node:path'
+import { deburr, isPlainObject, trim, upperFirst } from 'lodash'
+import type { JSONSchema, LinkedJSONSchema } from './types/JSONSchema'
+import { Parent } from './types/JSONSchema'
 
 // TODO: pull out into a separate package
 export function Try<T>(fn: () => T, err: (e: Error) => any): T {
   try {
     return fn()
-  } catch (e) {
+  }
+  catch (e) {
     return err(e as Error)
   }
 }
@@ -54,10 +56,9 @@ function traverseObjectKeys(
   callback: (schema: LinkedJSONSchema, key: string | null) => void,
   processed: Set<LinkedJSONSchema>,
 ) {
-  Object.keys(obj).forEach(k => {
-    if (obj[k] && typeof obj[k] === 'object' && !Array.isArray(obj[k])) {
+  Object.keys(obj).forEach((k) => {
+    if (obj[k] && typeof obj[k] === 'object' && !Array.isArray(obj[k]))
       traverse(obj[k], callback, processed, k)
-    }
   })
 }
 
@@ -76,67 +77,62 @@ export function traverse(
   key?: string,
 ): void {
   // Handle recursive schemas
-  if (processed.has(schema)) {
+  if (processed.has(schema))
     return
-  }
 
   processed.add(schema)
   callback(schema, key ?? null)
 
-  if (schema.anyOf) {
+  if (schema.anyOf)
     traverseArray(schema.anyOf, callback, processed)
-  }
-  if (schema.allOf) {
+
+  if (schema.allOf)
     traverseArray(schema.allOf, callback, processed)
-  }
-  if (schema.oneOf) {
+
+  if (schema.oneOf)
     traverseArray(schema.oneOf, callback, processed)
-  }
-  if (schema.properties) {
+
+  if (schema.properties)
     traverseObjectKeys(schema.properties, callback, processed)
-  }
-  if (schema.patternProperties) {
+
+  if (schema.patternProperties)
     traverseObjectKeys(schema.patternProperties, callback, processed)
-  }
-  if (schema.additionalProperties && typeof schema.additionalProperties === 'object') {
+
+  if (schema.additionalProperties && typeof schema.additionalProperties === 'object')
     traverse(schema.additionalProperties, callback, processed)
-  }
+
   if (schema.items) {
-    const {items} = schema
-    if (Array.isArray(items)) {
+    const { items } = schema
+    if (Array.isArray(items))
       traverseArray(items, callback, processed)
-    } else {
+    else
       traverse(items, callback, processed)
-    }
   }
-  if (schema.additionalItems && typeof schema.additionalItems === 'object') {
+  if (schema.additionalItems && typeof schema.additionalItems === 'object')
     traverse(schema.additionalItems, callback, processed)
-  }
+
   if (schema.dependencies) {
-    if (Array.isArray(schema.dependencies)) {
+    if (Array.isArray(schema.dependencies))
       traverseArray(schema.dependencies, callback, processed)
-    } else {
+    else
       traverseObjectKeys(schema.dependencies as LinkedJSONSchema, callback, processed)
-    }
   }
-  if (schema.definitions) {
+  if (schema.definitions)
     traverseObjectKeys(schema.definitions, callback, processed)
-  }
-  if (schema.$defs) {
+
+  if (schema.$defs)
     traverseObjectKeys(schema.$defs, callback, processed)
-  }
-  if (schema.not) {
+
+  if (schema.not)
     traverse(schema.not, callback, processed)
-  }
 
   // technically you can put definitions on any key
   Object.keys(schema)
     .filter(key => !BLACKLISTED_KEYS.has(key))
-    .forEach(key => {
+    .forEach((key) => {
       const child = schema[key]
-      if (child && typeof child === 'object') {
+      if (child && typeof child === 'object')
         traverseObjectKeys(child, callback, processed)
-      }
     })
 }
 
@@ -183,9 +179,8 @@ export function toSafeString(string: string) {
 
 export function generateName(from: string, usedNames: Set<string>) {
   let name = toSafeString(from)
-  if (!name) {
+  if (!name)
     name = 'NoName'
-  }
 
   // increment counter until we find a free name
   if (usedNames.has(name)) {
@@ -203,32 +198,31 @@ export function generateName(from: string, usedNames: Set<string>) {
 }
 
 export function error(...messages: any[]): void {
-  if (!process.env.VERBOSE) {
+  if (!process.env.VERBOSE)
     return console.error(messages)
-  }
+
   console.error(getStyledTextForLogging('red')?.('error'), ...messages)
 }
 
 type LogStyle = 'blue' | 'cyan' | 'green' | 'magenta' | 'red' | 'white' | 'yellow'
 
 export function log(style: LogStyle, title: string, ...messages: unknown[]): void {
-  if (!process.env.VERBOSE) {
+  if (!process.env.VERBOSE)
     return
-  }
+
   let lastMessage = null
-  if (messages.length > 1 && typeof messages[messages.length - 1] !== 'string') {
+  if (messages.length > 1 && typeof messages[messages.length - 1] !== 'string')
     lastMessage = messages.splice(messages.length - 1, 1)
-  }
+
   console.info(require('cli-color').whiteBright.bgCyan('debug'), getStyledTextForLogging(style)?.(title), ...messages)
-  if (lastMessage) {
-    console.dir(lastMessage, {depth: 6, maxArrayLength: 6})
-  }
+  if (lastMessage)
+    console.dir(lastMessage, { depth: 6, maxArrayLength: 6 })
 }
 
 function getStyledTextForLogging(style: LogStyle): ((text: string) => string) | undefined {
-  if (!process.env.VERBOSE) {
+  if (!process.env.VERBOSE)
     return
-  }
+
   switch (style) {
     case 'blue':
       return require('cli-color').whiteBright.bgBlue
@@ -252,13 +246,12 @@ function getStyledTextForLogging(style: LogStyle): ((text: string) => string) | 
  */
 export function escapeBlockComment(schema: JSONSchema) {
   const replacer = '* /'
-  if (schema === null || typeof schema !== 'object') {
+  if (schema === null || typeof schema !== 'object')
     return
-  }
+
   for (const key of Object.keys(schema)) {
-    if (key === 'description' && typeof schema[key] === 'string') {
+    if (key === 'description' && typeof schema[key] === 'string')
       schema[key] = schema[key]!.replace(/\*\//g, replacer)
-    }
   }
 }
 
@@ -288,41 +281,40 @@ export function pathTransform(outputPath: string, inputPath: string, filePath: s
  * Mutates `schema`.
  */
 export function maybeStripDefault(schema: LinkedJSONSchema): LinkedJSONSchema {
-  if (!('default' in schema)) {
+  if (!('default' in schema))
     return schema
-  }
 
   switch (schema.type) {
     case 'array':
-      if (Array.isArray(schema.default)) {
+      if (Array.isArray(schema.default))
         return schema
-      }
+
       break
     case 'boolean':
-      if (typeof schema.default === 'boolean') {
+      if (typeof schema.default === 'boolean')
         return schema
-      }
+
       break
     case 'integer':
     case 'number':
-      if (typeof schema.default === 'number') {
+      if (typeof schema.default === 'number')
         return schema
-      }
+
       break
     case 'string':
-      if (typeof schema.default === 'string') {
+      if (typeof schema.default === 'string')
         return schema
-      }
+
       break
     case 'null':
-      if (schema.default === null) {
+      if (schema.default === null)
         return schema
-      }
+
       break
     case 'object':
-      if (isPlainObject(schema.default)) {
+      if (isPlainObject(schema.default))
         return schema
-      }
+
       break
   }
   delete schema.default
@@ -337,33 +329,32 @@ export function maybeStripDefault(schema: LinkedJSONSchema): LinkedJSONSchema {
  * Mutates `schema`.
  */
 export function maybeStripNameHints(schema: JSONSchema): JSONSchema {
-  if ('$id' in schema) {
+  if ('$id' in schema)
     delete schema.$id
-  }
-  if ('description' in schema) {
+
+  if ('description' in schema)
     delete schema.description
-  }
-  if ('name' in schema) {
+
+  if ('name' in schema)
     delete schema.name
-  }
+
   return schema
 }
 
 export function appendToDescription(existingDescription: string | undefined, ...values: string[]): string {
-  if (existingDescription) {
+  if (existingDescription)
     return `${existingDescription}\n\n${values.join('\n')}`
-  }
+
   return values.join('\n')
 }
 
 export function isSchemaLike(schema: LinkedJSONSchema) {
-  if (!isPlainObject(schema)) {
+  if (!isPlainObject(schema))
     return false
-  }
+
   const parent = schema[Parent]
-  if (parent === null) {
+  if (parent === null)
     return true
-  }
 
   const JSON_SCHEMA_KEYWORDS = [
     '$defs',
@@ -378,9 +369,8 @@ export function isSchemaLike(schema: LinkedJSONSchema) {
     'properties',
     'required',
   ]
-  if (JSON_SCHEMA_KEYWORDS.some(_ => parent[_] === schema)) {
+  if (JSON_SCHEMA_KEYWORDS.some(_ => parent[_] === schema))
     return false
-  }
 
   return true
 }

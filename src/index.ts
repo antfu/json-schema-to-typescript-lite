@@ -1,23 +1,27 @@
-import {readFileSync} from 'fs'
-import {JSONSchema4} from 'json-schema'
-import {Options as $RefOptions} from '@bcherny/json-schema-ref-parser'
-import {cloneDeep, endsWith, merge} from 'lodash'
-import {dirname} from 'path'
-// import {Options as PrettierOptions} from 'prettier'
-// import {format} from './formatter'
-import {generate} from './generator'
-import {normalize} from './normalizer'
-import {optimize} from './optimizer'
-import {parse} from './parser'
-import {dereference} from './resolver'
-import {error, stripExtension, Try, log} from './utils'
-import {validate} from './validator'
-import {isDeepStrictEqual} from 'util'
-import {link} from './linker'
-import {validateOptions} from './optionValidator'
-import {JSONSchema as LinkedJSONSchema} from './types/JSONSchema'
+import { readFileSync } from 'node:fs'
+import { dirname } from 'node:path'
+import { isDeepStrictEqual } from 'node:util'
+import process from 'node:process'
+import type { JSONSchema4 } from 'json-schema'
+import type { ParserOptions as $RefOptions } from '@apidevtools/json-schema-ref-parser'
+import { cloneDeep, endsWith, merge } from 'lodash'
+import { generate } from './generator'
+import { normalize } from './normalizer'
+import { optimize } from './optimizer'
+import { parse } from './parser'
+import { dereference } from './resolver'
+import { Try, error, log, stripExtension } from './utils'
+import { validate } from './validator'
+import { link } from './linker'
+import { validateOptions } from './optionValidator'
+import type { JSONSchema as LinkedJSONSchema } from './types/JSONSchema'
 
-export {EnumJSONSchema, JSONSchema, NamedEnumJSONSchema, CustomTypeJSONSchema} from './types/JSONSchema'
+export type {
+  EnumJSONSchema,
+  JSONSchema,
+  NamedEnumJSONSchema,
+  CustomTypeJSONSchema,
+} from './types/JSONSchema'
 
 export interface Options {
   /**
@@ -65,10 +69,6 @@ export interface Options {
    * This is required to be compatible with `strictNullChecks`.
    */
   strictIndexSignatures: boolean
-  // /**
-  //  * A [Prettier](https://prettier.io/docs/en/options.html) configuration.
-  //  */
-  // style: PrettierOptions
   /**
    * Generate code for `definitions` that aren't referenced by the schema?
    */
@@ -111,7 +111,7 @@ export function compileFromFile(filename: string, options: Partial<Options> = DE
       throw new TypeError(`Error parsing JSON in file "${filename}"`)
     },
   )
-  return compile(schema, stripExtension(filename), {cwd: dirname(filename), ...options})
+  return compile(schema, stripExtension(filename), { cwd: dirname(filename), ...options })
 }
 
 export async function compile(schema: JSONSchema4, name: string, options: Partial<Options> = {}): Promise<string> {
@@ -125,35 +125,31 @@ export async function compile(schema: JSONSchema4, name: string, options: Partia
   }
 
   // normalize options
-  if (!endsWith(_options.cwd, '/')) {
+  if (!endsWith(_options.cwd, '/'))
     _options.cwd += '/'
-  }
 
   // Initial clone to avoid mutating the input
   const _schema = cloneDeep(schema)
 
-  const {dereferencedPaths, dereferencedSchema} = await dereference(_schema, _options)
+  const { dereferencedPaths, dereferencedSchema } = await dereference(_schema, _options)
   if (process.env.VERBOSE) {
-    if (isDeepStrictEqual(_schema, dereferencedSchema)) {
+    if (isDeepStrictEqual(_schema, dereferencedSchema))
       log('green', 'dereferencer', time(), '✅ No change')
-    } else {
+    else
       log('green', 'dereferencer', time(), '✅ Result:', dereferencedSchema)
-    }
   }
 
   const linked = link(dereferencedSchema)
-  if (process.env.VERBOSE) {
+  if (process.env.VERBOSE)
     log('green', 'linker', time(), '✅ No change')
-  }
 
   const errors = validate(linked, name)
   if (errors.length) {
     errors.forEach(_ => error(_))
     throw new ValidationError()
   }
-  if (process.env.VERBOSE) {
+  if (process.env.VERBOSE)
     log('green', 'validator', time(), '✅ No change')
-  }
 
   const normalized = normalize(linked, dereferencedPaths, name, _options)
   log('yellow', 'normalizer', time(), '✅ Result:', normalized)

@@ -7,24 +7,24 @@ export const input = {
       type: 'object',
       required: ['obj_type', 'type'],
       properties: {
-        obj_type: {type: 'string', enum: ['Foo']},
-        foo_type: {type: 'string'},
+        obj_type: { type: 'string', enum: ['Foo'] },
+        foo_type: { type: 'string' },
       },
     },
     {
       type: 'object',
       required: ['health', 'obj_type', 'team', 'type'],
       properties: {
-        obj_type: {type: 'string', enum: ['Bar']},
-        bar_type: {type: 'string'},
-        team: {type: 'string'},
-        health: {type: 'integer', format: 'uint', minimum: 0.0},
+        obj_type: { type: 'string', enum: ['Bar'] },
+        bar_type: { type: 'string' },
+        team: { type: 'string' },
+        health: { type: 'integer', format: 'uint', minimum: 0.0 },
       },
     },
   ],
   required: ['coords', 'id'],
   properties: {
-    coords: {type: 'number'},
-    id: {type: 'integer'},
+    coords: { type: 'number' },
+    id: { type: 'integer' },
   },
 }

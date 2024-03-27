@@ -67,13 +67,13 @@ const schema = {
         {
           type: 'object',
           properties: {
-            foo: {type: 'string'},
+            foo: { type: 'string' },
           },
         },
         {
           type: 'object',
           properties: {
-            bar: {type: 'number'},
+            bar: { type: 'number' },
           },
         },
       ],
@@ -85,20 +85,20 @@ const schema = {
         {
           type: 'object',
           properties: {
-            foo: {type: 'string'},
+            foo: { type: 'string' },
           },
         },
         {
           type: 'object',
           properties: {
-            bar: {type: 'number'},
+            bar: { type: 'number' },
           },
         },
       ],
       additionalItems: {
         type: 'object',
         properties: {
-          baz: {type: 'boolean'},
+          baz: { type: 'boolean' },
         },
       },
     },
@@ -116,14 +116,14 @@ const namedSchema = {
           id: 'StringSchema1',
           type: 'object',
           properties: {
-            foo: {type: 'string'},
+            foo: { type: 'string' },
           },
         },
         {
           id: 'NumberSchema1',
           type: 'object',
           properties: {
-            bar: {type: 'number'},
+            bar: { type: 'number' },
           },
         },
       ],
@@ -136,14 +136,14 @@ const namedSchema = {
           id: 'StringSchema2',
           type: 'object',
           properties: {
-            foo: {type: 'string'},
+            foo: { type: 'string' },
           },
         },
         {
           id: 'NumberSchema2',
           type: 'object',
           properties: {
-            bar: {type: 'number'},
+            bar: { type: 'number' },
           },
         },
       ],
@@ -151,7 +151,7 @@ const namedSchema = {
         id: 'BooleanSchema1',
         type: 'object',
         properties: {
-          baz: {type: 'boolean'},
+          baz: { type: 'boolean' },
         },
       },
     },
@@ -163,12 +163,12 @@ const ofType = {
   type: 'object',
   properties: {
     additonalItemsAny: {
-      items: [{type: 'integer'}, {type: 'string'}],
+      items: [{ type: 'integer' }, { type: 'string' }],
       additionalItems: true,
     },
     additonalItems: {
-      items: [{type: 'integer'}, {type: 'string'}],
-      additionalItems: {type: 'boolean'},
+      items: [{ type: 'integer' }, { type: 'string' }],
+      additionalItems: { type: 'boolean' },
     },
   },
   additionalProperties: false,

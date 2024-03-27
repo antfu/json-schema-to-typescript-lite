@@ -1,13 +1,13 @@
 import $RefParser = require('@bcherny/json-schema-ref-parser')
-import {JSONSchema} from './types/JSONSchema'
-import {log} from './utils'
+import type { JSONSchema } from './types/JSONSchema'
+import { log } from './utils'
 
 export type DereferencedPaths = WeakMap<$RefParser.JSONSchemaObject, string>
 
 export async function dereference(
   schema: JSONSchema,
-  {cwd, $refOptions}: {cwd: string; $refOptions: $RefParser.Options},
-): Promise<{dereferencedPaths: DereferencedPaths; dereferencedSchema: JSONSchema}> {
+  { cwd, $refOptions }: { cwd: string, $refOptions: $RefParser.Options },
+): Promise<{ dereferencedPaths: DereferencedPaths, dereferencedSchema: JSONSchema }> {
   log('green', 'dereferencer', 'Dereferencing input schema:', cwd, schema)
   const parser = new $RefParser()
   const dereferencedPaths: DereferencedPaths = new WeakMap()
@@ -20,5 +20,5 @@ export async function dereference(
       },
     },
   })) as any // TODO: fix types
-  return {dereferencedPaths, dereferencedSchema}
+  return { dereferencedPaths, dereferencedSchema }
 }

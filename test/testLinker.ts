@@ -1,10 +1,10 @@
 import test from 'ava'
-import {link} from '../src/linker'
-import {Parent} from '../src/types/JSONSchema'
-import {input} from './e2e/basics'
+import { link } from '../src/linker'
+import { Parent } from '../src/types/JSONSchema'
+import { input } from './e2e/basics'
 
 export function run() {
-  test("linker should link to each node's parent schema", t => {
+  test('linker should link to each node\'s parent schema', (t) => {
     const schema = link(input) as any
     t.is(schema[Parent], null)
     t.is(schema.properties[Parent], schema)

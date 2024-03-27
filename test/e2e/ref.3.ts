@@ -1,5 +1,5 @@
 // TODO: why does this test fail? do we need to send a specific User-Agent header to github?
-export let exclude = true
+export const exclude = true
 
 export const input = {
   title: 'Referencing3',

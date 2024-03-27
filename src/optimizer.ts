@@ -1,20 +1,20 @@
-import {uniqBy} from 'lodash'
-import {Options} from '.'
-import {generateType} from './generator'
-import {AST, T_ANY, T_UNKNOWN} from './types/AST'
-import {log} from './utils'
+import { uniqBy } from 'lodash'
+import { generateType } from './generator'
+import type { AST } from './types/AST'
+import { T_ANY, T_UNKNOWN } from './types/AST'
+import { log } from './utils'
+import type { Options } from '.'
 
 export function optimize(ast: AST, options: Options, processed = new Set<AST>()): AST {
-  if (processed.has(ast)) {
+  if (processed.has(ast))
     return ast
-  }
 
   processed.add(ast)
 
   switch (ast.type) {
     case 'INTERFACE':
       return Object.assign(ast, {
-        params: ast.params.map(_ => Object.assign(_, {ast: optimize(_.ast, options, processed)})),
+        params: ast.params.map(_ => Object.assign(_, { ast: optimize(_.ast, options, processed) })),
       })
     case 'INTERSECTION':
     case 'UNION':
@@ -37,12 +37,12 @@ export function optimize(ast: AST, options: Options, processed = new Set<AST>())
 
       // [A (named), A] -> [A (named)]
       if (
-        optimizedAST.params.every(_ => {
+        optimizedAST.params.every((_) => {
           const a = generateType(omitStandaloneName(_), options)
           const b = generateType(omitStandaloneName(optimizedAST.params[0]), options)
           return a === b
-        }) &&
-        optimizedAST.params.some(_ => _.standaloneName !== undefined)
+        })
+        && optimizedAST.params.some(_ => _.standaloneName !== undefined)
       ) {
         log('cyan', 'optimizer', '[A (named), A] -> [A (named)]', optimizedAST)
         optimizedAST.params = optimizedAST.params.filter(_ => _.standaloneName !== undefined)
@@ -69,6 +69,6 @@ function omitStandaloneName<A extends AST>(ast: A): A {
     case 'ENUM':
       return ast
     default:
-      return {...ast, standaloneName: undefined}
+      return { ...ast, standaloneName: undefined }
   }
 }
