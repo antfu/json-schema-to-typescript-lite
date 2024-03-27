@@ -23,7 +23,6 @@ import type { Options } from './index'
 export function generate(ast: AST, options = DEFAULT_OPTIONS): string {
   return (
     `${[
-      options.bannerComment,
       declareNamedTypes(ast, options, ast.standaloneName!),
       declareNamedInterfaces(ast, options, ast.standaloneName!),
       declareEnums(ast, options),
@@ -231,17 +230,17 @@ function generateRawType(ast: AST, options: Options): string {
 
         if (paramsList.length > minItems) {
           /*
-        if there are more items than the min, we return a union of tuples instead of
-        using the optional element operator. This is done because it is more typesafe.
+          if there are more items than the min, we return a union of tuples instead of
+          using the optional element operator. This is done because it is more typesafe.
 
-        // optional element operator
-        type A = [string, string?, string?]
-        const a: A = ['a', undefined, 'c'] // no error
+          // optional element operator
+          type A = [string, string?, string?]
+          const a: A = ['a', undefined, 'c'] // no error
 
-        // union of tuples
-        type B = [string] | [string, string] | [string, string, string]
-        const b: B = ['a', undefined, 'c'] // TS error
-        */
+          // union of tuples
+          type B = [string] | [string, string] | [string, string, string]
+          const b: B = ['a', undefined, 'c'] // TS error
+          */
 
           const cumulativeParamsList: string[] = paramsList.slice(0, minItems)
           const typesToUnion: string[] = []
@@ -291,27 +290,31 @@ function generateSetOperation(ast: TIntersection | TUnion, options: Options): st
 }
 
 function generateInterface(ast: TInterface, options: Options): string {
-  return (
-    `{`
-    + `\n${
-    ast.params
-      .filter(_ => !_.isPatternProperty && !_.isUnreachableDefinition)
-      .map(
-        ({ isRequired, keyName, ast }) =>
-          [isRequired, keyName, ast, generateType(ast, options)] as [boolean, string, AST, string],
-      )
-      .map(
-        ([isRequired, keyName, ast, type]) =>
-          `${(hasComment(ast) && !ast.standaloneName ? `${generateComment(ast.comment, ast.deprecated)}\n` : '')
-          + escapeKeyName(keyName)
-          + (isRequired ? '' : '?')
-          }: ${
-          type}`,
-      )
-      .join('\n')
-    }\n`
-    + `}`
-  )
+  const params = ast.params
+    .filter(_ => !_.isPatternProperty && !_.isUnreachableDefinition)
+
+  if (!params.length)
+    return '{}'
+
+  const lines = params
+    .map(({ isRequired, keyName, ast }) =>
+      [isRequired, keyName, ast, generateType(ast, options)] as [boolean, string, AST, string],
+    )
+    .map(([isRequired, keyName, ast, type]) =>
+      `${(hasComment(ast) && !ast.standaloneName ? `${generateComment(ast.comment, ast.deprecated)}\n` : '')
+      + escapeKeyName(keyName)
+      + (isRequired ? '' : '?')
+      }: ${
+      type}`,
+    )
+    .join('\n')
+    .split('\n')
+
+  return [
+    `{`,
+    ...lines.map(_ => `  ${_}`),
+   `}`,
+  ].join('\n')
 }
 
 function generateComment(comment?: string, deprecated?: boolean): string {

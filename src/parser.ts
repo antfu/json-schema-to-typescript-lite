@@ -406,7 +406,7 @@ function parseSchema(
   options: Options,
   processed: Processed,
   usedNames: UsedNames,
-  parentSchemaName: string,
+  _parentSchemaName: string,
 ): TInterfaceParam[] {
   let asts: TInterfaceParam[] = map(schema.properties, (value, key: string) => ({
     ast: parse(value, options, key, processed, usedNames),
@@ -426,9 +426,6 @@ function parseSchema(
     asts = asts.concat(
       map(schema.patternProperties, (value, key: string) => {
         const ast = parse(value, options, key, processed, usedNames)
-        const comment = `This interface was referenced by \`${parentSchemaName}\`'s JSON-Schema definition
-via the \`patternProperty\` "${key.replace('*/', '*\\/')}".`
-        ast.comment = ast.comment ? `${ast.comment}\n\n${comment}` : comment
         return {
           ast,
           isPatternProperty: !singlePatternProperty,
@@ -444,9 +441,6 @@ via the \`patternProperty\` "${key.replace('*/', '*\\/')}".`
     asts = asts.concat(
       map(schema.$defs, (value, key: string) => {
         const ast = parse(value, options, key, processed, usedNames)
-        const comment = `This interface was referenced by \`${parentSchemaName}\`'s JSON-Schema
-via the \`definition\` "${key}".`
-        ast.comment = ast.comment ? `${ast.comment}\n\n${comment}` : comment
         return {
           ast,
           isPatternProperty: false,

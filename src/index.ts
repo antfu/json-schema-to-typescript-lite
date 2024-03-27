@@ -31,10 +31,6 @@ export interface Options {
    */
   additionalProperties: boolean
   /**
-   * Disclaimer comment prepended to the top of each generated file.
-   */
-  bannerComment: string
-  /**
    * Root directory for resolving [`$ref`](https://tools.ietf.org/id/draft-pbryan-zyp-json-ref-03.html)s.
    */
   cwd: string
@@ -80,7 +76,6 @@ export interface Options {
 export const DEFAULT_OPTIONS: Options = {
   $refOptions: {},
   additionalProperties: true, // TODO: default to empty schema (as per spec) instead
-  bannerComment: '',
   cwd: process.cwd(),
   declareExternallyReferenced: true,
   enableConstEnums: true,
