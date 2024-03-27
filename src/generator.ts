@@ -309,6 +309,8 @@ function generateInterface(ast: TInterface, options: Options): string {
     )
     .join('\n')
     .split('\n')
+    .map(i => i.trimEnd())
+    .filter(Boolean)
 
   return [
     `{`,
