@@ -16,9 +16,4 @@ export const input = {
 }
 
 export const options: Partial<Options> = {
-  style: {
-    semi: false,
-    trailingComma: 'all',
-    useTabs: true,
-  },
 }

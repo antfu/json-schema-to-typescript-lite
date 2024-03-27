@@ -31,37 +31,43 @@
       "require": "./dist/index.cjs"
     }
   },
-  "main": "dist/index.mjs",
-  "module": "dist/index.mjs",
-  "types": "dist/index.d.ts",
+  "main": "./dist/index.mjs",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
   "engines": {
     "node": ">=20.0.0"
   },
   "scripts": {
     "build": "unbuild",
     "lint": "eslint .",
-    "test": "ava --timeout=300s --verbose",
-    "stresstest": "seq 1 10 | xargs -I{} npm test",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest",
     "prepublishOnly": "npm run build"
   },
   "dependencies": {
     "@apidevtools/json-schema-ref-parser": "^11.5.4",
-    "@types/json-schema": "^7.0.15",
-    "@types/lodash": "^4.17.0",
-    "lodash": "^4.17.21"
+    "@types/json-schema": "^7.0.15"
   },
   "devDependencies": {
     "@antfu/eslint-config": "^2.11.1",
+    "@types/lodash": "^4.17.0",
+    "@types/lodash-es": "^4.17.12",
     "@types/node": "^20.11.30",
     "@types/rimraf": "^4.0.5",
     "ava": "^4.2.0",
     "concurrently": "^8.2.2",
     "eslint": "^8.57.0",
+    "json-schema-to-typescript-lite": "workspace:*",
+    "lodash-es": "^4.17.21",
     "rimraf": "^5.0.5",
     "shx": "^0.3.4",
     "tsify": "^5.0.4",
     "typescript": "^5.4.3",
-    "unbuild": "^2.0.0"
+    "unbuild": "^2.0.0",
+    "vitest": "^1.4.0"
   },
   "ava": {
     "files": [

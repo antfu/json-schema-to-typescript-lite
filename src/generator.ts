@@ -1,4 +1,5 @@
-import { memoize, omit } from 'lodash'
+import memoize from 'lodash-es/memoize'
+import omit from 'lodash-es/omit'
 import type {
   AST,
   ASTWithStandaloneName,
@@ -15,7 +16,7 @@ import {
   hasComment,
   hasStandaloneName,
 } from './types/AST'
-import { log, toSafeString } from './utils'
+import { toSafeString } from './utils'
 import { DEFAULT_OPTIONS } from './index'
 import type { Options } from './index'
 
@@ -158,11 +159,10 @@ function generateTypeUnmemoized(ast: AST, options: Options): string {
 
   return type
 }
-export const generateType = memoize(generateTypeUnmemoized)
+
+export const generateType = memoize(generateTypeUnmemoized) as typeof generateTypeUnmemoized
 
 function generateRawType(ast: AST, options: Options): string {
-  log('magenta', 'generator', ast)
-
   if (hasStandaloneName(ast))
     return toSafeString(ast.standaloneName)
 

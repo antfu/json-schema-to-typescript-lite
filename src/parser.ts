@@ -1,5 +1,9 @@
-import { format } from 'node:util'
-import { findKey, includes, isPlainObject, map, memoize, omit } from 'lodash'
+import map from 'lodash-es/map'
+import findKey from 'lodash-es/findKey'
+import includes from 'lodash-es/includes'
+import isPlainObject from 'lodash-es/isPlainObject'
+import omit from 'lodash-es/omit'
+import memoize from 'lodash-es/memoize'
 import type { JSONSchema4Type, JSONSchema4TypeName } from 'json-schema'
 import { typesOfSchema } from './typesOfSchema'
 import type {
@@ -27,7 +31,7 @@ import {
   isBoolean,
   isPrimitive,
 } from './types/JSONSchema'
-import { generateName, log, maybeStripDefault, maybeStripNameHints } from './utils'
+import { generateName, maybeStripDefault, maybeStripNameHints } from './utils'
 import type { Options } from './'
 
 export type Processed = Map<LinkedJSONSchema, Map<SchemaType, AST>>
@@ -51,7 +55,7 @@ export function parse(
   const types = typesOfSchema(schema)
   if (types.length === 1) {
     const ast = parseAsTypeWithCache(schema, types[0], options, keyName, processed, usedNames)
-    log('blue', 'parser', 'Types:', types, 'Input:', schema, 'Output:', ast)
+    // log('blue', 'parser', 'Types:', types, 'Input:', schema, 'Output:', ast)
     return ast
   }
 
@@ -77,7 +81,7 @@ export function parse(
     parseAsTypeWithCache(maybeStripNameHints(schema), type, options, keyName, processed, usedNames),
   )
 
-  log('blue', 'parser', 'Types:', types, 'Input:', schema, 'Output:', ast)
+  // log('blue', 'parser', 'Types:', types, 'Input:', schema, 'Output:', ast)
   return ast
 }
 
@@ -131,6 +135,8 @@ function parseLiteral(schema: JSONSchema4Type, keyName: string | undefined): AST
     type: 'LITERAL',
   }
 }
+
+const getDefinitionsMemoized = memoize(getDefinitions)
 
 function parseNonLiteral(
   schema: LinkedJSONSchema,
@@ -243,7 +249,7 @@ function parseNonLiteral(
         type: 'UNION',
       }
     case 'REFERENCE':
-      throw new Error(format('Refs should have been resolved by the resolver!', schema))
+      throw new Error(`Refs should have been resolved by the resolver! ${JSON.stringify(schema, null, 2)}`)
     case 'STRING':
       return {
         comment: schema.description,
@@ -517,8 +523,6 @@ function getDefinitions(
   }
   return {}
 }
-
-const getDefinitionsMemoized = memoize(getDefinitions)
 
 /**
  * TODO: Reduce rate of false positives

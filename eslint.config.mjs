@@ -3,7 +3,7 @@ import antfu from '@antfu/eslint-config'
 export default antfu(
   {
     ignores: [
-      'tests/__fixtures__/**',
+      'test/__fixtures__/**',
     ],
-  }
+  },
 )

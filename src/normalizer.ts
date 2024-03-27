@@ -12,6 +12,7 @@ type Rule = (
   key: string | null,
   dereferencedPaths: DereferencedPaths,
 ) => void
+
 const rules = new Map<string, Rule>()
 
 function hasType(schema: LinkedJSONSchema, type: JSONSchemaTypeName) {

@@ -1,8 +1,7 @@
-import { uniqBy } from 'lodash'
+import uniqBy from 'lodash-es/uniqBy'
 import { generateType } from './generator'
 import type { AST } from './types/AST'
 import { T_ANY, T_UNKNOWN } from './types/AST'
-import { log } from './utils'
 import type { Options } from '.'
 
 export function optimize(ast: AST, options: Options, processed = new Set<AST>()): AST {
@@ -17,7 +16,7 @@ export function optimize(ast: AST, options: Options, processed = new Set<AST>())
         params: ast.params.map(_ => Object.assign(_, { ast: optimize(_.ast, options, processed) })),
       })
     case 'INTERSECTION':
-    case 'UNION':
+    case 'UNION': {
       // Start with the leaves...
       const optimizedAST = Object.assign(ast, {
         params: ast.params.map(_ => optimize(_, options, processed)),
@@ -25,13 +24,13 @@ export function optimize(ast: AST, options: Options, processed = new Set<AST>())
 
       // [A, B, C, Any] -> Any
       if (optimizedAST.params.some(_ => _.type === 'ANY')) {
-        log('cyan', 'optimizer', '[A, B, C, Any] -> Any', optimizedAST)
+        // log('cyan', 'optimizer', '[A, B, C, Any] -> Any', optimizedAST)
         return T_ANY
       }
 
       // [A, B, C, Unknown] -> Unknown
       if (optimizedAST.params.some(_ => _.type === 'UNKNOWN')) {
-        log('cyan', 'optimizer', '[A, B, C, Unknown] -> Unknown', optimizedAST)
+        // log('cyan', 'optimizer', '[A, B, C, Unknown] -> Unknown', optimizedAST)
         return T_UNKNOWN
       }
 
@@ -44,20 +43,21 @@ export function optimize(ast: AST, options: Options, processed = new Set<AST>())
         })
         && optimizedAST.params.some(_ => _.standaloneName !== undefined)
       ) {
-        log('cyan', 'optimizer', '[A (named), A] -> [A (named)]', optimizedAST)
+        // log('cyan', 'optimizer', '[A (named), A] -> [A (named)]', optimizedAST)
         optimizedAST.params = optimizedAST.params.filter(_ => _.standaloneName !== undefined)
       }
 
       // [A, B, B] -> [A, B]
       const params = uniqBy(optimizedAST.params, _ => generateType(_, options))
       if (params.length !== optimizedAST.params.length) {
-        log('cyan', 'optimizer', '[A, B, B] -> [A, B]', optimizedAST)
+        // log('cyan', 'optimizer', '[A, B, B] -> [A, B]', optimizedAST)
         optimizedAST.params = params
       }
 
       return Object.assign(optimizedAST, {
         params: optimizedAST.params.map(_ => optimize(_, options, processed)),
       })
+    }
     default:
       return ast
   }

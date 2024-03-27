@@ -1,8 +1,8 @@
-import { writeFileSync } from 'node:fs'
-import { compileFromFile } from 'json-schema-to-typescript'
+import { readFileSync, writeFileSync } from 'node:fs'
+import { compile } from 'json-schema-to-typescript-lite'
 
 async function generate() {
-  writeFileSync('person.d.ts', await compileFromFile('person.json'))
+  writeFileSync('person.d.ts', await compile(JSON.parse(readFileSync('person.json', 'utf-8')), 'Person'))
 }
 
 generate()

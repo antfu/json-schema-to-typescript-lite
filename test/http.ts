@@ -31,7 +31,7 @@ function getFilepath(url: string): string {
 
 function writeToFilesystem(url: string, data: object): void {
   const filepath = getFilepath(url)
-  console.info(`Writing "${filepath} to filesystem...`)
+  // console.info(`Writing "${filepath} to filesystem...`)
   writeFileSync(filepath, JSON.stringify(data, null, 2))
 }
 

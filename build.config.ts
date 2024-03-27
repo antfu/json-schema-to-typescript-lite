@@ -6,9 +6,10 @@ export default defineBuildConfig({
   ],
   rollup: {
     emitCJS: true,
+    inlineDependencies: true,
   },
   declaration: true,
   externals: [
     'json-schema',
-  ]
+  ],
 })

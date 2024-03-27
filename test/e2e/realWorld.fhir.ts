@@ -64350,5 +64350,4 @@ export const input = {
 }
 
 export const options: Partial<Options> = {
-  format: false,
 }

@@ -1,16 +1,14 @@
-import { readFileSync } from 'node:fs'
-import { dirname } from 'node:path'
-import { isDeepStrictEqual } from 'node:util'
 import process from 'node:process'
 import type { JSONSchema4 } from 'json-schema'
 import type { ParserOptions as $RefOptions } from '@apidevtools/json-schema-ref-parser'
-import { cloneDeep, endsWith, merge } from 'lodash'
+import cloneDeep from 'lodash-es/cloneDeep'
+import endsWith from 'lodash-es/endsWith'
+import merge from 'lodash-es/merge'
 import { generate } from './generator'
 import { normalize } from './normalizer'
 import { optimize } from './optimizer'
 import { parse } from './parser'
 import { dereference } from './resolver'
-import { Try, error, log, stripExtension } from './utils'
 import { validate } from './validator'
 import { link } from './linker'
 import { validateOptions } from './optionValidator'
@@ -49,10 +47,6 @@ export interface Options {
    */
   enableConstEnums: boolean
   /**
-   * Format code? Set this to `false` to improve performance.
-   */
-  format: boolean
-  /**
    * Ignore maxItems and minItems for `array` types, preventing tuples being generated.
    */
   ignoreMinAndMaxItems: boolean
@@ -90,7 +84,6 @@ export const DEFAULT_OPTIONS: Options = {
   cwd: process.cwd(),
   declareExternallyReferenced: true,
   enableConstEnums: true,
-  format: true,
   ignoreMinAndMaxItems: false,
   maxItems: 20,
   strictIndexSignatures: false,
@@ -98,31 +91,10 @@ export const DEFAULT_OPTIONS: Options = {
   unknownAny: true,
 }
 
-export function compileFromFile(filename: string, options: Partial<Options> = DEFAULT_OPTIONS): Promise<string> {
-  const contents = Try(
-    () => readFileSync(filename),
-    () => {
-      throw new ReferenceError(`Unable to read file "${filename}"`)
-    },
-  )
-  const schema = Try<JSONSchema4>(
-    () => JSON.parse(contents.toString()),
-    () => {
-      throw new TypeError(`Error parsing JSON in file "${filename}"`)
-    },
-  )
-  return compile(schema, stripExtension(filename), { cwd: dirname(filename), ...options })
-}
-
 export async function compile(schema: JSONSchema4, name: string, options: Partial<Options> = {}): Promise<string> {
   validateOptions(options)
 
   const _options = merge({}, DEFAULT_OPTIONS, options)
-
-  const start = Date.now()
-  function time() {
-    return `(${Date.now() - start}ms)`
-  }
 
   // normalize options
   if (!endsWith(_options.cwd, '/'))
@@ -132,39 +104,19 @@ export async function compile(schema: JSONSchema4, name: string, options: Partia
   const _schema = cloneDeep(schema)
 
   const { dereferencedPaths, dereferencedSchema } = await dereference(_schema, _options)
-  if (process.env.VERBOSE) {
-    if (isDeepStrictEqual(_schema, dereferencedSchema))
-      log('green', 'dereferencer', time(), '✅ No change')
-    else
-      log('green', 'dereferencer', time(), '✅ Result:', dereferencedSchema)
-  }
 
   const linked = link(dereferencedSchema)
-  if (process.env.VERBOSE)
-    log('green', 'linker', time(), '✅ No change')
 
   const errors = validate(linked, name)
   if (errors.length) {
-    errors.forEach(_ => error(_))
+    errors.forEach(_ => console.error(_))
     throw new ValidationError()
   }
-  if (process.env.VERBOSE)
-    log('green', 'validator', time(), '✅ No change')
 
   const normalized = normalize(linked, dereferencedPaths, name, _options)
-  log('yellow', 'normalizer', time(), '✅ Result:', normalized)
-
   const parsed = parse(normalized, _options)
-  log('blue', 'parser', time(), '✅ Result:', parsed)
-
   const optimized = optimize(parsed, _options)
-  log('cyan', 'optimizer', time(), '✅ Result:', optimized)
-
   const generated = generate(optimized, _options)
-  log('magenta', 'generator', time(), '✅ Result:', generated)
-
-  // const formatted = format(generated, _options)
-  // log('white', 'formatter', time(), '✅ Result:', formatted)
 
   return generated
 }

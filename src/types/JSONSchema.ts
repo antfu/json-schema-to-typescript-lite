@@ -1,5 +1,6 @@
 import type { JSONSchema4, JSONSchema4Type, JSONSchema4TypeName } from 'json-schema'
-import { isPlainObject, memoize } from 'lodash'
+import isPlainObject from 'lodash-es/isPlainObject'
+import memoize from 'lodash-es/memoize'
 
 export type SchemaType =
   | 'ALL_OF'
@@ -129,7 +130,7 @@ export const getRootSchema = memoize((schema: LinkedJSONSchema): LinkedJSONSchem
     return schema
 
   return getRootSchema(parent)
-})
+}) as (schema: LinkedJSONSchema) => LinkedJSONSchema
 
 export function isBoolean(schema: LinkedJSONSchema | JSONSchemaType): schema is boolean {
   return schema === true || schema === false

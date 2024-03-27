@@ -1,5 +1,8 @@
 import { basename, dirname, extname, normalize, posix, sep } from 'node:path'
-import { deburr, isPlainObject, trim, upperFirst } from 'lodash'
+import deburr from 'lodash-es/deburr'
+import isPlainObject from 'lodash-es/isPlainObject'
+import trim from 'lodash-es/trim'
+import upperFirst from 'lodash-es/upperFirst'
 import type { JSONSchema, LinkedJSONSchema } from './types/JSONSchema'
 import { Parent } from './types/JSONSchema'
 
@@ -195,50 +198,6 @@ export function generateName(from: string, usedNames: Set<string>) {
 
   usedNames.add(name)
   return name
-}
-
-export function error(...messages: any[]): void {
-  if (!process.env.VERBOSE)
-    return console.error(messages)
-
-  console.error(getStyledTextForLogging('red')?.('error'), ...messages)
-}
-
-type LogStyle = 'blue' | 'cyan' | 'green' | 'magenta' | 'red' | 'white' | 'yellow'
-
-export function log(style: LogStyle, title: string, ...messages: unknown[]): void {
-  if (!process.env.VERBOSE)
-    return
-
-  let lastMessage = null
-  if (messages.length > 1 && typeof messages[messages.length - 1] !== 'string')
-    lastMessage = messages.splice(messages.length - 1, 1)
-
-  console.info(require('cli-color').whiteBright.bgCyan('debug'), getStyledTextForLogging(style)?.(title), ...messages)
-  if (lastMessage)
-    console.dir(lastMessage, { depth: 6, maxArrayLength: 6 })
-}
-
-function getStyledTextForLogging(style: LogStyle): ((text: string) => string) | undefined {
-  if (!process.env.VERBOSE)
-    return
-
-  switch (style) {
-    case 'blue':
-      return require('cli-color').whiteBright.bgBlue
-    case 'cyan':
-      return require('cli-color').whiteBright.bgCyan
-    case 'green':
-      return require('cli-color').whiteBright.bgGreen
-    case 'magenta':
-      return require('cli-color').whiteBright.bgMagenta
-    case 'red':
-      return require('cli-color').whiteBright.bgRedBright
-    case 'white':
-      return require('cli-color').black.bgWhite
-    case 'yellow':
-      return require('cli-color').whiteBright.bgYellow
-  }
 }
 
 /**

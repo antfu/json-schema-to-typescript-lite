@@ -1,4 +1,4 @@
-import { isPlainObject } from 'lodash'
+import isPlainObject from 'lodash-es/isPlainObject'
 import type { JSONSchema4Type } from 'json-schema'
 import type { JSONSchema, LinkedJSONSchema } from './types/JSONSchema'
 import { Parent } from './types/JSONSchema'
@@ -12,6 +12,7 @@ export function link(schema: JSONSchema4Type | JSONSchema, parent: JSONSchema4Ty
     return schema as LinkedJSONSchema
 
   // Handle cycles
+  // eslint-disable-next-line no-prototype-builtins
   if ((schema as JSONSchema).hasOwnProperty(Parent))
     return schema as LinkedJSONSchema
 

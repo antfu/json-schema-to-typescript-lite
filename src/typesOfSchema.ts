@@ -1,33 +1,6 @@
-import { isPlainObject } from 'lodash'
+import isPlainObject from 'lodash-es/isPlainObject'
 import type { JSONSchema, SchemaType } from './types/JSONSchema'
 import { isCompound } from './types/JSONSchema'
-
-/**
- * Duck types a JSONSchema schema or property to determine which kind of AST node to parse it into.
- *
- * Due to what some might say is an oversight in the JSON-Schema spec, a given schema may
- * implicitly be an *intersection* of multiple JSON-Schema directives (ie. multiple TypeScript
- * types). The spec leaves it up to implementations to decide what to do with this
- * loosely-defined behavior.
- */
-export function typesOfSchema(schema: JSONSchema): readonly [SchemaType, ...SchemaType[]] {
-  // tsType is an escape hatch that supercedes all other directives
-  if (schema.tsType)
-    return ['CUSTOM_TYPE']
-
-  // Collect matched types
-  const matchedTypes: SchemaType[] = []
-  for (const [schemaType, f] of Object.entries(matchers)) {
-    if (f(schema))
-      matchedTypes.push(schemaType as SchemaType)
-  }
-
-  // Default to an unnamed schema
-  if (!matchedTypes.length)
-    return ['UNNAMED_SCHEMA']
-
-  return matchedTypes as [SchemaType, ...SchemaType[]]
-}
 
 const matchers: Record<SchemaType, (schema: JSONSchema) => boolean> = {
   ALL_OF(schema) {
@@ -144,4 +117,31 @@ const matchers: Record<SchemaType, (schema: JSONSchema) => boolean> = {
   UNTYPED_ARRAY(schema) {
     return schema.type === 'array' && !('items' in schema)
   },
+}
+
+/**
+ * Duck types a JSONSchema schema or property to determine which kind of AST node to parse it into.
+ *
+ * Due to what some might say is an oversight in the JSON-Schema spec, a given schema may
+ * implicitly be an *intersection* of multiple JSON-Schema directives (ie. multiple TypeScript
+ * types). The spec leaves it up to implementations to decide what to do with this
+ * loosely-defined behavior.
+ */
+export function typesOfSchema(schema: JSONSchema): readonly [SchemaType, ...SchemaType[]] {
+  // tsType is an escape hatch that supercedes all other directives
+  if (schema.tsType)
+    return ['CUSTOM_TYPE']
+
+  // Collect matched types
+  const matchedTypes: SchemaType[] = []
+  for (const [schemaType, f] of Object.entries(matchers)) {
+    if (f(schema))
+      matchedTypes.push(schemaType as SchemaType)
+  }
+
+  // Default to an unnamed schema
+  if (!matchedTypes.length)
+    return ['UNNAMED_SCHEMA']
+
+  return matchedTypes as [SchemaType, ...SchemaType[]]
 }
