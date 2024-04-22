@@ -19,7 +19,7 @@
     "clean": "rm -f index.js index.d.ts person.d.ts"
   },
   "dependencies": {
-    "@types/node": "^20.11.30",
+    "@types/node": "^20.12.7",
     "json-schema-to-typescript-lite": "workspace:*",
     "typescript": "3.8.3"
   }
