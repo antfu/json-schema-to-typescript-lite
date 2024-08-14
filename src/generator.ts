@@ -366,7 +366,7 @@ function generateStandaloneType(ast: ASTWithStandaloneName, options: Options): s
 }
 
 function escapeKeyName(keyName: string): string {
-  if (keyName.length && /[A-Za-z_$]/.test(keyName.charAt(0)) && /^[\w$]+$/.test(keyName))
+  if (keyName.length && /[A-Z_$]/i.test(keyName.charAt(0)) && /^[\w$]+$/.test(keyName))
     return keyName
 
   if (keyName === '[k: string]')

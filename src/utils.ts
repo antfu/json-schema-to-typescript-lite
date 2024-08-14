@@ -154,7 +154,7 @@ export function stripExtension(filename: string): string {
 }
 
 export function isSafeIdentifier(string: string) {
-  return /^[a-zA-Z_$][a-zA-Z\d_$]*$/.test(string)
+  return /^[a-z_$][\w$]*$/i.test(string)
 }
 
 /**
@@ -176,15 +176,15 @@ export function normalizeIdentifier(string: string) {
     // remove accents, umlauts, ... by their basic latin letters
     deburr(string)
       // replace chars which are not valid for typescript identifiers with whitespace
-      .replace(/(^\s*[^a-zA-Z_$])|([^a-zA-Z_$\d])/g, ' ')
+      .replace(/(^\s*[^a-z_$])|([^\w$])/gi, ' ')
       // uppercase leading underscores followed by lowercase
       .replace(/^_[a-z]/g, match => match.toUpperCase())
       // remove non-leading underscores followed by lowercase (convert snake_case)
       .replace(/_[a-z]/g, match => match.substr(1, match.length).toUpperCase())
       // uppercase letters after digits, dollars
-      .replace(/([\d$]+[a-zA-Z])/g, match => match.toUpperCase())
+      .replace(/([\d$]+[a-z])/gi, match => match.toUpperCase())
       // uppercase first letter after whitespace
-      .replace(/\s+([a-zA-Z])/g, match => trim(match.toUpperCase()))
+      .replace(/\s+([a-z])/gi, match => trim(match.toUpperCase()))
       // remove remaining whitespace
       .replace(/\s/g, ''),
   )

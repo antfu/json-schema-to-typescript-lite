@@ -26,7 +26,7 @@ function getFromFilesystem(url: string): object | undefined {
 }
 
 function getFilepath(url: string): string {
-  return join(__dirname, '../../', CACHE_DIR, url.replace(/[:\/\\]/g, '-'))
+  return join(__dirname, '../../', CACHE_DIR, url.replace(/[:/\\]/g, '-'))
 }
 
 function writeToFilesystem(url: string, data: object): void {

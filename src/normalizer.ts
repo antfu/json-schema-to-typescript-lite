@@ -31,8 +31,9 @@ rules.set('Remove `type=["null"]` if `enum=[null]`', (schema) => {
     && schema.enum.includes(null)
     && Array.isArray(schema.type)
     && schema.type.includes('null')
-  )
+  ) {
     schema.type = schema.type.filter(type => type !== 'null')
+  }
 })
 
 rules.set('Destructure unary types', (schema) => {

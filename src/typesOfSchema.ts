@@ -106,8 +106,9 @@ const matchers: Record<SchemaType, (schema: JSONSchema) => boolean> = {
       && schema.type !== 'integer'
       && schema.type !== 'number'
       && schema.type !== 'string'
-    )
+    ) {
       return false
+    }
 
     return 'enum' in schema
   },
