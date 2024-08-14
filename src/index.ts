@@ -14,6 +14,12 @@ import { link } from './linker'
 import { validateOptions } from './optionValidator'
 import type { JSONSchema as LinkedJSONSchema } from './types/JSONSchema'
 
+export {
+  normalizeIdentifier,
+  isSafeIdentifier,
+  toSafeIdentifier,
+} from './utils'
+
 export type {
   EnumJSONSchema,
   JSONSchema,

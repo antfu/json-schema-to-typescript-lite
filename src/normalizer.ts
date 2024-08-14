@@ -1,7 +1,7 @@
 import { isDeepStrictEqual } from 'node:util'
 import type { JSONSchemaTypeName, LinkedJSONSchema, NormalizedJSONSchema } from './types/JSONSchema'
 import { Parent } from './types/JSONSchema'
-import { appendToDescription, escapeBlockComment, isSchemaLike, justName, toSafeString, traverse } from './utils'
+import { appendToDescription, escapeBlockComment, isSchemaLike, justName, normalizeIdentifier, traverse } from './utils'
 import type { DereferencedPaths } from './resolver'
 import type { Options } from './'
 
@@ -76,7 +76,7 @@ rules.set('Add an $id to anything that needs it', (schema, fileName, _options, _
 
   // Top-level schema
   if (!schema.$id && !schema[Parent]) {
-    schema.$id = toSafeString(justName(fileName))
+    schema.$id = normalizeIdentifier(justName(fileName))
     return
   }
 
@@ -88,7 +88,7 @@ rules.set('Add an $id to anything that needs it', (schema, fileName, _options, _
   // TODO: Normalize upstream
   const dereferencedName = dereferencedPaths.get(schema)
   if (!schema.$id && !schema.title && dereferencedName)
-    schema.$id = toSafeString(justName(dereferencedName))
+    schema.$id = normalizeIdentifier(justName(dereferencedName))
 
   if (dereferencedName)
     dereferencedPaths.delete(schema)
@@ -176,7 +176,7 @@ rules.set('Normalize schema.items', (schema, _fileName, options) => {
 })
 
 rules.set('Remove extends, if it is empty', (schema) => {
-  if (!schema.hasOwnProperty('extends'))
+  if (!Object.prototype.hasOwnProperty.call(schema, 'extends'))
     return
 
   if (schema.extends == null || (Array.isArray(schema.extends) && schema.extends.length === 0))

@@ -153,15 +153,25 @@ export function stripExtension(filename: string): string {
   return filename.replace(extname(filename), '')
 }
 
+export function isSafeIdentifier(string: string) {
+  return /^[a-zA-Z_$][a-zA-Z\d_$]*$/.test(string)
+}
+
 /**
  * Convert a string that might contain spaces or special characters to one that
  * can safely be used as a TypeScript interface or enum name.
  */
-export function toSafeString(string: string) {
+export function toSafeIdentifier(string: string) {
+  if (isSafeIdentifier(string))
+    return string
+
   // identifiers in javaScript/ts:
   // First character: a-zA-Z | _ | $
   // Rest: a-zA-Z | _ | $ | 0-9
+  return normalizeIdentifier(string)
+}
 
+export function normalizeIdentifier(string: string) {
   return upperFirst(
     // remove accents, umlauts, ... by their basic latin letters
     deburr(string)
@@ -181,7 +191,7 @@ export function toSafeString(string: string) {
 }
 
 export function generateName(from: string, usedNames: Set<string>) {
-  let name = toSafeString(from)
+  let name = normalizeIdentifier(from)
   if (!name)
     name = 'NoName'
 
