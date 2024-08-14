@@ -1,7 +1,7 @@
 {
   "name": "json-schema-to-typescript-lite",
   "type": "module",
-  "version": "14.0.1",
+  "version": "14.1.0",
   "packageManager": "pnpm@9.7.1",
   "description": "Lite version of json-schema-to-typescript",
   "author": "Boris Cherny <boris@performancejs.com> (http://performancejs.com/)",
