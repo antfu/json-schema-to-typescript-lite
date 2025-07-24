@@ -1,6 +1,6 @@
-import { expect, it } from 'vitest'
 import type { JSONSchema4 } from 'json-schema'
 import cloneDeep from 'lodash-es/cloneDeep'
+import { expect, it } from 'vitest'
 import { compile } from '../src'
 
 export function run() {

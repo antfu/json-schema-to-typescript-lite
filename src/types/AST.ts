@@ -2,25 +2,25 @@ import type { JSONSchema4Type } from 'json-schema'
 
 export type AST_TYPE = AST['type']
 
-export type AST =
-  | TAny
-  | TArray
-  | TBoolean
-  | TEnum
-  | TInterface
-  | TNamedInterface
-  | TIntersection
-  | TLiteral
-  | TNever
-  | TNumber
-  | TNull
-  | TObject
-  | TReference
-  | TString
-  | TTuple
-  | TUnion
-  | TUnknown
-  | TCustomType
+export type AST
+  = | TAny
+    | TArray
+    | TBoolean
+    | TEnum
+    | TInterface
+    | TNamedInterface
+    | TIntersection
+    | TLiteral
+    | TNever
+    | TNumber
+    | TNull
+    | TObject
+    | TReference
+    | TString
+    | TTuple
+    | TUnion
+    | TUnknown
+    | TCustomType
 
 export interface AbstractAST {
   comment?: string

@@ -1,11 +1,5 @@
-import map from 'lodash-es/map'
-import findKey from 'lodash-es/findKey'
-import includes from 'lodash-es/includes'
-import isPlainObject from 'lodash-es/isPlainObject'
-import omit from 'lodash-es/omit'
-import memoize from 'lodash-es/memoize'
 import type { JSONSchema4Type, JSONSchema4TypeName } from 'json-schema'
-import { typesOfSchema } from './typesOfSchema'
+import type { Options } from './'
 import type {
   AST,
   TInterface,
@@ -14,25 +8,31 @@ import type {
   TNamedInterface,
   TTuple,
 } from './types/AST'
-import {
-  T_ANY,
-  T_ANY_ADDITIONAL_PROPERTIES,
-  T_UNKNOWN,
-  T_UNKNOWN_ADDITIONAL_PROPERTIES,
-} from './types/AST'
 import type {
   JSONSchemaWithDefinitions,
   JSONSchema as LinkedJSONSchema,
   SchemaSchema,
   SchemaType,
 } from './types/JSONSchema'
+import findKey from 'lodash-es/findKey'
+import includes from 'lodash-es/includes'
+import isPlainObject from 'lodash-es/isPlainObject'
+import map from 'lodash-es/map'
+import memoize from 'lodash-es/memoize'
+import omit from 'lodash-es/omit'
+import {
+  T_ANY,
+  T_ANY_ADDITIONAL_PROPERTIES,
+  T_UNKNOWN,
+  T_UNKNOWN_ADDITIONAL_PROPERTIES,
+} from './types/AST'
 import {
   getRootSchema,
   isBoolean,
   isPrimitive,
 } from './types/JSONSchema'
+import { typesOfSchema } from './typesOfSchema'
 import { generateName, maybeStripDefault, maybeStripNameHints } from './utils'
-import type { Options } from './'
 
 export type Processed = Map<LinkedJSONSchema, Map<SchemaType, AST>>
 
@@ -326,7 +326,7 @@ function parseNonLiteral(
           maxItems: schema.maxItems,
           minItems,
           // create a tuple of length N
-          params: Array(Math.max(maxItems, minItems) || 0).fill(params),
+          params: Array.from({ length: Math.max(maxItems, minItems) || 0 }).fill(params) as AST[],
           // if there is no maximum, then add a spread item to collect the rest
           spreadParam: maxItems >= 0 ? undefined : params,
           standaloneName: standaloneName(schema, keyNameFromDefinition, usedNames, options),

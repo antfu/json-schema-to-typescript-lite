@@ -1,5 +1,4 @@
-import memoize from 'lodash-es/memoize'
-import omit from 'lodash-es/omit'
+import type { Options } from './index'
 import type {
   AST,
   ASTWithStandaloneName,
@@ -10,15 +9,16 @@ import type {
   TNamedInterface,
   TUnion,
 } from './types/AST'
+import memoize from 'lodash-es/memoize'
+import omit from 'lodash-es/omit'
+import { DEFAULT_OPTIONS } from './index'
 import {
-  T_ANY,
-  T_UNKNOWN,
   hasComment,
   hasStandaloneName,
+  T_ANY,
+  T_UNKNOWN,
 } from './types/AST'
 import { toSafeIdentifier } from './utils'
-import { DEFAULT_OPTIONS } from './index'
-import type { Options } from './index'
 
 export function generate(ast: AST, options = DEFAULT_OPTIONS): string {
   return (
@@ -305,7 +305,7 @@ function generateInterface(ast: TInterface, options: Options): string {
       + escapeKeyName(keyName)
       + (isRequired ? '' : '?')
       }: ${
-      type}`,
+        type}`,
     )
     .join('\n')
     .split('\n')
@@ -315,7 +315,7 @@ function generateInterface(ast: TInterface, options: Options): string {
   return [
     `{`,
     ...lines.map(_ => `  ${_}`),
-   `}`,
+    `}`,
   ].join('\n')
 }
 
@@ -335,10 +335,10 @@ function generateStandaloneEnum(ast: TEnum, options: Options): string {
   return (
     `${hasComment(ast) ? `${generateComment(ast.comment, ast.deprecated)}\n` : ''
     }export ${
-    options.enableConstEnums ? 'const ' : ''
+      options.enableConstEnums ? 'const ' : ''
     }enum ${toSafeIdentifier(ast.standaloneName)} {`
     + `\n${
-    ast.params.map(({ ast, keyName }) => `${keyName} = ${generateType(ast, options)}`).join(',\n')
+      ast.params.map(({ ast, keyName }) => `${keyName} = ${generateType(ast, options)}`).join(',\n')
     }\n`
     + `}`
   )
@@ -348,9 +348,9 @@ function generateStandaloneInterface(ast: TNamedInterface, options: Options): st
   return (
     `${hasComment(ast) ? `${generateComment(ast.comment, ast.deprecated)}\n` : ''
     }export interface ${toSafeIdentifier(ast.standaloneName)} ${
-    ast.superTypes.length > 0
-      ? `extends ${ast.superTypes.map(superType => toSafeIdentifier(superType.standaloneName)).join(', ')} `
-      : ''
+      ast.superTypes.length > 0
+        ? `extends ${ast.superTypes.map(superType => toSafeIdentifier(superType.standaloneName)).join(', ')} `
+        : ''
     }${generateInterface(ast, options)}`
   )
 }

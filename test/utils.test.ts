@@ -1,6 +1,6 @@
+import type { LinkedJSONSchema } from '../src/types/JSONSchema'
 import { expect, it } from 'vitest'
 import { link } from '../src/linker'
-import type { LinkedJSONSchema } from '../src/types/JSONSchema'
 import { generateName, isSchemaLike, pathTransform } from '../src/utils'
 
 it('pathTransform', () => {

@@ -1,5 +1,5 @@
-import isPlainObject from 'lodash-es/isPlainObject'
 import type { JSONSchema, SchemaType } from './types/JSONSchema'
+import isPlainObject from 'lodash-es/isPlainObject'
 import { isCompound } from './types/JSONSchema'
 
 const matchers: Record<SchemaType, (schema: JSONSchema) => boolean> = {

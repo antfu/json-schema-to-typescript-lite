@@ -1,9 +1,9 @@
-import { isDeepStrictEqual } from 'node:util'
+import type { Options } from './'
+import type { DereferencedPaths } from './resolver'
 import type { JSONSchemaTypeName, LinkedJSONSchema, NormalizedJSONSchema } from './types/JSONSchema'
+import { isDeepStrictEqual } from 'node:util'
 import { Parent } from './types/JSONSchema'
 import { appendToDescription, escapeBlockComment, isSchemaLike, justName, normalizeIdentifier, traverse } from './utils'
-import type { DereferencedPaths } from './resolver'
-import type { Options } from './'
 
 type Rule = (
   schema: LinkedJSONSchema,
@@ -159,7 +159,7 @@ rules.set('Normalize schema.items', (schema, _fileName, options) => {
   if (schema.items && !Array.isArray(schema.items) && (hasMaxItems || hasMinItems)) {
     const items = schema.items
     // create a tuple of length N
-    const newItems = Array(maxItems || minItems || 0).fill(items)
+    const newItems = Array.from({ length: maxItems || minItems || 0 }, () => items)
     if (!hasMaxItems) {
       // if there is no maximum, then add a spread item to collect the rest
       schema.additionalItems = items

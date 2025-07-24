@@ -1,31 +1,31 @@
-import process from 'node:process'
-import type { JSONSchema4 } from 'json-schema'
 import type { ParserOptions as $RefOptions } from '@apidevtools/json-schema-ref-parser'
+import type { JSONSchema4 } from 'json-schema'
+import type { JSONSchema as LinkedJSONSchema } from './types/JSONSchema'
+import process from 'node:process'
 import cloneDeep from 'lodash-es/cloneDeep'
 import endsWith from 'lodash-es/endsWith'
 import merge from 'lodash-es/merge'
 import { generate } from './generator'
+import { link } from './linker'
 import { normalize } from './normalizer'
 import { optimize } from './optimizer'
+import { validateOptions } from './optionValidator'
 import { parse } from './parser'
 import { dereference } from './resolver'
 import { validate } from './validator'
-import { link } from './linker'
-import { validateOptions } from './optionValidator'
-import type { JSONSchema as LinkedJSONSchema } from './types/JSONSchema'
-
-export {
-  normalizeIdentifier,
-  isSafeIdentifier,
-  toSafeIdentifier,
-} from './utils'
 
 export type {
+  CustomTypeJSONSchema,
   EnumJSONSchema,
   JSONSchema,
   NamedEnumJSONSchema,
-  CustomTypeJSONSchema,
 } from './types/JSONSchema'
+
+export {
+  isSafeIdentifier,
+  normalizeIdentifier,
+  toSafeIdentifier,
+} from './utils'
 
 export interface Options {
   /**
